@@ -2,13 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, ShoppingBag, Shield, Zap, Clock, Star, TrendingUp, Mail, Phone, MapPin, Heart } from 'lucide-react';
+import { Camera, ShoppingBag, Shield, Zap, Clock, TrendingUp, Mail, Phone, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import SearchOverlay from '@/components/SearchOverlay';
 import ChatWidget from '@/components/ChatWidget';
 import ProductModal from '@/components/ProductModal';
 import AddToCartToast from '@/components/AddToCartToast';
-import ButterflyScene from '@/components/ButterflyScene';
+import ButterflyHero from '@/components/ButterflyHero';
+import CustomerReviews from '@/components/CustomerReviews';
+import LiveBackground from '@/components/LiveBackground';
 import { useToast } from '@/components/ToastContainer';
 import { useAuth } from '@/contexts/AuthContext';
 import { addToCart } from '@/lib/user';
@@ -21,6 +24,7 @@ const Index = () => {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [showCartToast, setShowCartToast] = useState(false);
   const [cartToastItem, setCartToastItem] = useState(null);
+  const [navbarVisible, setNavbarVisible] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { user, refreshCart, addToLocalCart } = useAuth();
@@ -63,38 +67,6 @@ const Index = () => {
       image: "Raritone Collection/Kiss me again.jpeg", 
       count: "12 Items", 
       category: "Premium" 
-    }
-  ];
-
-  // Customer Reviews Data
-  const reviews = [
-    {
-      id: 1,
-      name: "Priya Sharma",
-      rating: 5,
-      comment: "The AI body scan is incredible! Perfect fit every time.",
-      avatar: "PS"
-    },
-    {
-      id: 2,
-      name: "Arjun Patel",
-      rating: 5,
-      comment: "Amazing quality and the virtual try-on saved me so much time.",
-      avatar: "AP"
-    },
-    {
-      id: 3,
-      name: "Sneha Reddy",
-      rating: 5,
-      comment: "Love the personalized recommendations. Best fashion app!",
-      avatar: "SR"
-    },
-    {
-      id: 4,
-      name: "Vikram Singh",
-      rating: 5,
-      comment: "Revolutionary technology. Never buying clothes without this again.",
-      avatar: "VS"
     }
   ];
 
@@ -165,223 +137,243 @@ const Index = () => {
     }
   };
 
+  const handleButterflyComplete = () => {
+    setNavbarVisible(true);
+  };
+
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white relative">
+      {/* Live Animated Background */}
+      <LiveBackground />
+
       {/* Navigation */}
       <Navbar 
         onSearchOpen={() => setIsSearchOpen(true)}
         onCartOpen={() => {}}
       />
 
-      {/* ENHANCED HERO SECTION */}
+      {/* ENHANCED HERO SECTION WITH BUTTERFLY */}
       <div className="relative min-h-screen overflow-hidden flex items-center justify-center">
-        {/* 3D Butterfly Background - LARGER & HIGHER */}
-        <div className="absolute inset-0 w-full h-full" style={{ transform: 'scale(1.4) translateY(-15vh)', zIndex: 1 }}>
-          <ButterflyScene />
+        {/* Butterfly Hero Animation */}
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+          <ButterflyHero onAnimationComplete={handleButterflyComplete} />
         </div>
         
         {/* Dark gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" style={{ zIndex: 2 }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" style={{ zIndex: 2 }} />
 
-        {/* Hero Content - LOGO AT BUTTERFLY CENTER */}
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-8" style={{ zIndex: 3, transform: 'translateY(0vh)' }}>
+        {/* Hero Content */}
+        <motion.div 
+          className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-8" 
+          style={{ zIndex: 3 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
           <div className="p-8 sm:p-12 lg:p-16">
-            <div className="mb-8">
-              <img
-                src="/IMG-20250305-WA0003-removebg-preview.png"
-                alt="RARITONE"
-                className="mx-auto w-full max-w-xs sm:max-w-2xl h-auto luxury-float"
-                style={{ 
-                  filter: 'drop-shadow(0 0 40px rgba(209, 169, 128, 0.8)) brightness(1.2)',
-                  textShadow: '0 0 20px rgba(209, 169, 128, 0.5)'
-                }}
-              />
-            </div>
+            <motion.h1 
+              className="hero-title mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+            >
+              AI-Powered Fashion
+            </motion.h1>
 
-            <p className="hero-subtitle font-light mb-16 opacity-90" 
-               style={{ 
-                 textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-                 filter: 'brightness(1.2)',
-                 color: 'var(--secondary-accent)'
-               }}>
-              Fashion Meets Technology
-            </p>
+            <motion.p 
+              className="hero-subtitle font-light mb-16 opacity-90 max-w-2xl mx-auto" 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.3 }}
+            >
+              Experience the future of fashion with our revolutionary AI body scanning technology. 
+              Perfect fit, every time.
+            </motion.p>
 
-            {/* EQUAL STYLED BUTTONS */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-16">
-              <button
+            {/* CTA BUTTONS */}
+            <motion.div 
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.6 }}
+            >
+              <motion.button
                 className="btn-primary font-medium flex items-center space-x-3 rounded-full justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
                 onClick={() => navigate('/scan')}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Camera size={isMobile ? 18 : 20} />
                 <span>Start Body Scan</span>
-              </button>
+              </motion.button>
               
-              <button
+              <motion.button
                 className="btn-secondary font-medium flex items-center space-x-3 rounded-full justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
                 onClick={() => navigate('/catalog')}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ShoppingBag size={isMobile ? 18 : 20} />
                 <span>Browse Collection</span>
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
-            {/* Notice Text with Better Visibility */}
-            <p className="max-w-md mx-auto leading-relaxed text-xs sm:text-sm px-4 opacity-80"
-               style={{ 
-                 textShadow: '0 2px 8px rgba(0,0,0,0.8)',
-                 background: 'rgba(0,0,0,0.3)',
-                 padding: '8px 16px',
-                 borderRadius: '8px',
-                 backdropFilter: 'blur(10px)',
-                 color: 'var(--secondary-accent)'
-               }}>
-              This site uses webcam access to enable AI-powered try-ons. Your camera data is never stored or shared.
-            </p>
+            {/* Privacy Notice */}
+            <motion.p 
+              className="max-w-md mx-auto leading-relaxed text-xs sm:text-sm px-4 opacity-70 glass-morphism rounded-lg p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 2 }}
+            >
+              🔒 Your privacy is protected. Camera data is processed locally and never stored.
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* AI BODY SCAN BENEFITS SECTION */}
-      <section className="py-12 sm:py-20 luxury-gradient">
+      <motion.section 
+        className="py-16 sm:py-24 luxury-gradient relative"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="hero-title mb-4 flex items-center justify-center">
-              <Shield className="mr-3" size={isMobile ? 24 : 32} color="var(--primary-accent)" />
+          <motion.div 
+            className="text-center mb-12 sm:mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="hero-title mb-6 flex items-center justify-center">
+              <Shield className="mr-4" size={isMobile ? 28 : 40} color="var(--primary-accent)" />
               AI Body Scan Benefits
             </h2>
-            <p className="hero-subtitle max-w-2xl mx-auto px-4">
+            <p className="hero-subtitle max-w-3xl mx-auto px-4">
               Revolutionary technology that ensures perfect fit every time with complete privacy and precision.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-            {/* 100% Private */}
-            <div className="feature-card">
-              <Shield size={48} color="var(--primary-accent)" className="mx-auto mb-4" />
-              <h3 className="feature-title">100% Private</h3>
-              <p className="feature-description">
-                Body data never stored or sent online. All processing happens locally on your device for complete privacy.
-              </p>
-            </div>
-
-            {/* 99% Accurate */}
-            <div className="feature-card">
-              <Zap size={48} color="var(--primary-accent)" className="mx-auto mb-4" />
-              <h3 className="feature-title">99% Accurate</h3>
-              <p className="feature-description">
-                AI scanning ensures near-perfect micro-fit. Our technology provides the most accurate measurements possible.
-              </p>
-            </div>
-
-            {/* 30 Second Scan */}
-            <div className="feature-card">
-              <Clock size={48} color="var(--primary-accent)" className="mx-auto mb-4" />
-              <h3 className="feature-title">30 Second Scan</h3>
-              <p className="feature-description">
-                Fast scan with only a smartphone camera. Get your perfect measurements in half a minute.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+            {[
+              {
+                icon: Shield,
+                title: "100% Private",
+                description: "Body data never stored or sent online. All processing happens locally on your device for complete privacy."
+              },
+              {
+                icon: Zap,
+                title: "99% Accurate",
+                description: "AI scanning ensures near-perfect micro-fit. Our technology provides the most accurate measurements possible."
+              },
+              {
+                icon: Clock,
+                title: "30 Second Scan",
+                description: "Fast scan with only a smartphone camera. Get your perfect measurements in half a minute."
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                className="feature-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8 }}
+              >
+                <feature.icon size={56} color="var(--primary-accent)" className="mx-auto mb-6" />
+                <h3 className="feature-title">{feature.title}</h3>
+                <p className="feature-description">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* SHOP BY CATEGORY SECTION (ONLY 3 CATEGORIES) */}
-      <section className="py-12 sm:py-20">
+      {/* SHOP BY CATEGORY SECTION */}
+      <motion.section 
+        className="py-16 sm:py-24"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="hero-title mb-4 flex items-center justify-center">
-              <TrendingUp className="mr-3" size={isMobile ? 24 : 32} color="var(--primary-accent)" />
+          <motion.div 
+            className="text-center mb-12 sm:mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="hero-title mb-6 flex items-center justify-center">
+              <TrendingUp className="mr-4" size={isMobile ? 28 : 40} color="var(--primary-accent)" />
               Shop by Category
             </h2>
-            <p className="hero-subtitle max-w-2xl mx-auto px-4">
-              Explore our curated collection of premium fashion categories.
+            <p className="hero-subtitle max-w-3xl mx-auto px-4">
+              Explore our curated collection of premium fashion categories, each designed with AI-powered precision.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 max-w-4xl mx-auto">
-            {categories.map((category) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
+            {categories.map((category, index) => (
+              <motion.div
                 key={category.name}
                 className="group cursor-pointer"
                 onClick={() => handleCategoryClick(category.category)}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
               >
                 <div className="category-card">
                   <div className="aspect-square relative overflow-hidden">
                     <img
                       src={category.image}
                       alt={category.name}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  </div>
-                  <div className="text-center p-4">
-                    <h3 className="font-medium mb-1 text-[var(--text-primary)] text-base sm:text-lg">
-                      {category.name}
-                    </h3>
-                    <p className="text-[var(--secondary-accent)] text-sm">
-                      {category.count}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CUSTOMER REVIEW SLIDER SECTION */}
-      <section className="py-12 sm:py-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <div className="text-center">
-            <h2 className="hero-title mb-4 flex items-center justify-center">
-              <Star className="mr-3" size={isMobile ? 24 : 32} color="var(--primary-accent)" />
-              What Our Customers Say
-            </h2>
-            <p className="hero-subtitle max-w-2xl mx-auto px-4">
-              Join thousands of satisfied customers who love our AI-powered fashion experience.
-            </p>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="review-slider flex space-x-6">
-            {[...reviews, ...reviews].map((review, index) => (
-              <div
-                key={`${review.id}-${index}`}
-                className="flex-shrink-0 w-80 luxury-card p-6 mx-3"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-[var(--primary-accent)] flex items-center justify-center text-black font-semibold mr-4">
-                    {review.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[var(--text-primary)]">{review.name}</h4>
-                    <div className="flex">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} size={16} fill="var(--primary-accent)" color="var(--primary-accent)" />
-                      ))}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="font-semibold mb-1 text-white text-lg sm:text-xl">
+                        {category.name}
+                      </h3>
+                      <p className="text-white/80 text-sm">
+                        {category.count}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <p className="text-[var(--secondary-accent)] italic">"{review.comment}"</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* FOOTER SECTION WITH SMOOTH SCROLL LINKS */}
-      <footer id="footer" className="py-8 sm:py-16 section-divider border-t">
+      {/* CUSTOMER REVIEWS SECTION */}
+      <CustomerReviews />
+
+      {/* FOOTER SECTION */}
+      <footer className="luxury-footer py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="luxury-card rounded-2xl p-6 sm:p-8">
+          <motion.div 
+            className="luxury-card rounded-2xl p-8 sm:p-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Brand Section */}
               <div className="lg:col-span-2" id="about">
-                <img
+                <motion.img
                   src="/IMG-20250305-WA0003-removebg-preview.png"
                   alt="RARITONE"
-                  className="h-16 sm:h-20 w-auto mb-4"
+                  className="h-16 sm:h-20 w-auto mb-6"
+                  whileHover={{ scale: 1.05 }}
                 />
                 <p className="text-[var(--secondary-accent)] max-w-md leading-relaxed text-sm sm:text-base">
                   Revolutionizing fashion with AI-powered body scanning technology. 
@@ -391,43 +383,53 @@ const Index = () => {
 
               {/* Quick Links */}
               <div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-base sm:text-lg">Quick Links</h3>
-                <ul className="space-y-2">
-                  <li><a href="#about" className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors">About Us</a></li>
-                  <li><a href="#privacy" className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors">Privacy Policy</a></li>
-                  <li><a href="#returns" className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors">Returns & Exchanges</a></li>
-                  <li><a href="#contact" className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors">Contact Us</a></li>
+                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg">Quick Links</h3>
+                <ul className="space-y-3">
+                  {[
+                    { label: 'About Us', href: '#about' },
+                    { label: 'Privacy Policy', href: '#privacy' },
+                    { label: 'Returns & Exchanges', href: '#returns' },
+                    { label: 'Contact Us', href: '#contact' }
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <motion.a 
+                        href={link.href} 
+                        className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors"
+                        whileHover={{ x: 5 }}
+                      >
+                        {link.label}
+                      </motion.a>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               {/* Contact Info */}
               <div id="contact">
-                <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-base sm:text-lg">Contact</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Mail size={16} className="text-[var(--secondary-accent)]" />
-                    <span className="text-[var(--secondary-accent)] text-sm sm:text-base">
-                      hello@raritone.in
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone size={16} className="text-[var(--secondary-accent)]" />
-                    <span className="text-[var(--secondary-accent)] text-sm sm:text-base">
-                      +91 98765 43210
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <MapPin size={16} className="text-[var(--secondary-accent)]" />
-                    <span className="text-[var(--secondary-accent)] text-sm sm:text-base">
-                      Mumbai, India
-                    </span>
-                  </div>
+                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg">Contact</h3>
+                <div className="space-y-4">
+                  {[
+                    { icon: Mail, text: 'hello@raritone.in' },
+                    { icon: Phone, text: '+91 98765 43210' },
+                    { icon: MapPin, text: 'Mumbai, India' }
+                  ].map((contact, index) => (
+                    <motion.div 
+                      key={index}
+                      className="flex items-center space-x-3"
+                      whileHover={{ x: 5 }}
+                    >
+                      <contact.icon size={16} className="text-[var(--secondary-accent)]" />
+                      <span className="text-[var(--secondary-accent)] text-sm sm:text-base">
+                        {contact.text}
+                      </span>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* Privacy and Returns Sections */}
-            <div className="section-divider border-t mt-8 sm:mt-12 pt-6 sm:pt-8">
+            <div className="section-divider border-t mt-12 pt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div id="privacy">
                   <h3 className="font-semibold text-[var(--text-primary)] mb-4">Privacy Policy</h3>
@@ -451,7 +453,7 @@ const Index = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </footer>
 
