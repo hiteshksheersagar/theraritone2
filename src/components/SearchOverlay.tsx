@@ -138,7 +138,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 luxury-navbar"
+        className="search-container fixed inset-0 z-50"
       >
         <div className="min-h-screen">
           {/* Header */}
@@ -151,21 +151,21 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
             <div className="max-w-4xl mx-auto flex items-center justify-between">
               <div className="flex-1 mr-8">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--secondary-accent)]" size={20} />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--olive-green)]" size={20} />
                   <input
                     id="search-input"
                     type="text"
-                    placeholder="Search for products, brands, or styles..."
+                    placeholder="Find your perfect fit..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 text-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-accent)] rounded-xl luxury-input"
+                    className="search-input w-full pl-12 pr-4 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-[var(--soft-tan)] rounded-xl"
                   />
                 </div>
               </div>
               
               <motion.button
                 onClick={onClose}
-                className="p-3 hover:bg-[var(--primary-accent)] hover:bg-opacity-20 rounded-full text-[var(--text-primary)] transition-colors"
+                className="p-3 hover:bg-[var(--soft-tan)] hover:bg-opacity-20 rounded-full text-[var(--text-light)] transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -176,15 +176,15 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
             {/* Category Filters */}
             <div className="max-w-4xl mx-auto mt-4">
               <div className="flex items-center space-x-2 overflow-x-auto">
-                <Filter size={16} className="text-[var(--secondary-accent)] flex-shrink-0" />
+                <Filter size={16} className="text-[var(--olive-green)] flex-shrink-0" />
                 {categories.map((category) => (
                   <motion.button
                     key={category}
                     onClick={() => setSelectedCategory(category === 'All' ? '' : category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 luxury-body ${
                       (selectedCategory === category) || (selectedCategory === '' && category === 'All')
-                        ? 'bg-[var(--primary-accent)] text-black'
-                        : 'bg-transparent border border-[var(--border-color)] text-[var(--text-primary)] hover:bg-[var(--primary-accent)] hover:bg-opacity-20'
+                        ? 'btn-primary'
+                        : 'btn-secondary'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -205,7 +205,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-accent)]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--soft-tan)]"></div>
               </motion.div>
             )}
 
@@ -218,7 +218,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                 >
-                  <h3 className="text-lg font-medium mb-6 text-[var(--text-primary)]">
+                  <h3 className="text-lg font-medium mb-6 text-[var(--text-light)] luxury-heading">
                     Search Results ({searchResults.length})
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -239,8 +239,8 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
-                        <h4 className="font-medium text-sm text-[var(--text-primary)] mb-1">{product.name}</h4>
-                        <p className="text-[var(--secondary-accent)] text-sm">₹{product.price}</p>
+                        <h4 className="font-medium text-sm text-[var(--text-light)] mb-1 luxury-body">{product.name}</h4>
+                        <p className="text-[var(--olive-green)] text-sm luxury-body">₹{product.price}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -256,7 +256,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <h3 className="text-lg font-medium mb-6 text-[var(--text-primary)] flex items-center">
+                <h3 className="text-lg font-medium mb-6 text-[var(--text-light)] flex items-center luxury-heading">
                   <TrendingUp className="mr-2" size={20} />
                   Trending Searches
                 </h3>
@@ -265,7 +265,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                     <motion.button
                       key={index}
                       onClick={() => handleTrendingClick(search)}
-                      className="px-4 py-2 border border-[var(--border-color)] hover:bg-[var(--primary-accent)] hover:bg-opacity-20 rounded-full text-sm text-[var(--text-primary)] transition-colors"
+                      className="btn-secondary text-sm"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       initial={{ opacity: 0, x: -20 }}
@@ -287,13 +287,13 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-lg font-medium mb-6 text-[var(--text-primary)]">Recent Searches</h3>
+                <h3 className="text-lg font-medium mb-6 text-[var(--text-light)] luxury-heading">Recent Searches</h3>
                 <div className="flex flex-wrap gap-3">
                   {recentSearches.map((search, index) => (
                     <motion.button
                       key={index}
                       onClick={() => setSearchQuery(search)}
-                      className="px-4 py-2 border border-[var(--border-color)] hover:bg-[var(--primary-accent)] hover:bg-opacity-20 rounded-full text-sm text-[var(--text-primary)] transition-colors"
+                      className="btn-secondary text-sm"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       initial={{ opacity: 0, x: -20 }}
@@ -314,7 +314,7 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <h3 className="text-lg font-medium mb-6 text-[var(--text-primary)]">New This Season</h3>
+                <h3 className="text-lg font-medium mb-6 text-[var(--text-light)] luxury-heading">New This Season</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {suggestedProducts.map((product, index) => (
                     <motion.div
@@ -333,8 +333,8 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
-                      <h4 className="font-medium text-sm text-[var(--text-primary)] mb-1">{product.name}</h4>
-                      <p className="text-[var(--secondary-accent)] text-sm">₹{product.price}</p>
+                      <h4 className="font-medium text-sm text-[var(--text-light)] mb-1 luxury-body">{product.name}</h4>
+                      <p className="text-[var(--olive-green)] text-sm luxury-body">₹{product.price}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -348,8 +348,8 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <p className="text-[var(--secondary-accent)] text-lg mb-4">No products found for "{searchQuery}"</p>
-                <p className="text-[var(--secondary-accent)] text-sm">Try adjusting your search or browse our categories</p>
+                <p className="text-[var(--olive-green)] text-lg mb-4 luxury-body">No products found for "{searchQuery}"</p>
+                <p className="text-[var(--olive-green)] text-sm luxury-body">Try adjusting your search or browse our categories</p>
               </motion.div>
             )}
           </div>

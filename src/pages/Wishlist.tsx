@@ -153,7 +153,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ background: 'var(--main-bg)' }}>
       <Navbar 
         onSearchOpen={() => {}}
         onCartOpen={() => {}}
@@ -162,10 +162,10 @@ const Wishlist = () => {
       />
       
       <div className="pt-20 max-w-6xl mx-auto px-4 py-8">
-        {/* CLEAN HEADER - NO DUPLICATION */}
+        {/* CLEAN HEADER */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <Heart size={32} className="wishlist-heart mr-3" />
+            <Heart size={32} className="mr-3" style={{ color: 'var(--soft-tan)' }} />
             <h1 className="hero-title text-white">My Wishlist</h1>
           </div>
           <p className="hero-subtitle max-w-2xl mx-auto">
@@ -182,9 +182,9 @@ const Wishlist = () => {
             {wishlistItems.map((item) => (
               <div
                 key={item.id}
-                className="luxury-card rounded-lg overflow-hidden group"
+                className="wishlist-item group"
               >
-                <div className="aspect-[3/4] overflow-hidden relative">
+                <div className="aspect-[3/4] overflow-hidden relative rounded-xl mb-4">
                   <img
                     src={item.imageURL}
                     alt={item.name}
@@ -203,25 +203,25 @@ const Wishlist = () => {
                   {/* Remove Button */}
                   <button
                     onClick={() => removeFromWishlist(item.id)}
-                    className="absolute top-4 right-4 p-2 bg-[var(--error-color)] rounded-full text-white hover:bg-red-600 transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute top-4 right-4 p-2 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors opacity-0 group-hover:opacity-100"
                   >
                     <X size={16} />
                   </button>
                 </div>
                 
                 <div className="p-4">
-                  <h3 className="font-medium text-[var(--text-primary)] mb-1 text-sm sm:text-base">{item.name}</h3>
-                  <p className="text-xs sm:text-sm text-[var(--secondary-accent)] mb-2">{item.category}</p>
-                  <p className="text-base sm:text-lg font-semibold text-[var(--text-primary)] mb-3">₹{item.price}</p>
+                  <h3 className="font-medium text-[var(--text-primary)] mb-1 text-sm sm:text-base luxury-body">{item.name}</h3>
+                  <p className="text-xs sm:text-sm text-[var(--olive-green)] mb-2 luxury-body">{item.category}</p>
+                  <p className="text-base sm:text-lg font-semibold text-[var(--text-primary)] mb-3 luxury-body">₹{item.price}</p>
                   
                   {/* Stock Status */}
                   <div className="mb-3">
                     {item.stock > 0 ? (
-                      <span className="text-xs text-green-400 bg-green-900/20 px-2 py-1 rounded">
+                      <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded luxury-body">
                         In Stock ({item.stock} left)
                       </span>
                     ) : (
-                      <span className="text-xs text-[var(--error-color)] bg-red-900/20 px-2 py-1 rounded">
+                      <span className="text-xs text-red-600 bg-red-100 px-2 py-1 rounded luxury-body">
                         Out of Stock
                       </span>
                     )}
@@ -233,7 +233,7 @@ const Wishlist = () => {
                       {item.tags.slice(0, 2).map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs bg-[var(--secondary-accent)] bg-opacity-20 text-[var(--secondary-accent)] rounded"
+                          className="px-2 py-1 text-xs bg-[var(--olive-green)] bg-opacity-20 text-[var(--olive-green)] rounded luxury-body"
                         >
                           {tag}
                         </span>
@@ -245,7 +245,7 @@ const Wishlist = () => {
                     <Button
                       onClick={() => addToCartFromWishlist(item)}
                       disabled={item.stock === 0}
-                      className="w-full btn-primary flex items-center justify-center space-x-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <ShoppingBag size={16} />
                       <span>{item.stock === 0 ? 'Out of Stock' : 'Add to Cart'}</span>
@@ -253,7 +253,7 @@ const Wishlist = () => {
                     
                     <Button
                       onClick={() => removeFromWishlist(item.id)}
-                      className="w-full border border-[var(--error-color)] text-[var(--error-color)] hover:bg-red-900/20 hover:border-red-400 bg-transparent flex items-center justify-center space-x-2 rounded-xl"
+                      className="w-full border border-red-500 text-red-500 hover:bg-red-50 hover:border-red-600 bg-transparent flex items-center justify-center space-x-2"
                     >
                       <Trash2 size={16} />
                       <span>Remove</span>
@@ -266,15 +266,15 @@ const Wishlist = () => {
         ) : (
           <div className="text-center py-16">
             <div className="w-24 h-24 mx-auto mb-6 rounded-full luxury-card flex items-center justify-center">
-              <Heart size={32} className="text-[var(--secondary-accent)]" />
+              <Heart size={32} className="text-[var(--olive-green)]" />
             </div>
-            <h3 className="text-xl font-medium text-white mb-2">Your wishlist is empty</h3>
-            <p className="text-[var(--secondary-accent)] mb-8 max-w-md mx-auto">
+            <h3 className="text-xl font-medium text-white mb-2 luxury-heading">Your wishlist is empty</h3>
+            <p className="text-[var(--olive-green)] mb-8 max-w-md mx-auto luxury-body">
               Start browsing our collection and save items you love by clicking the heart icon on any product.
             </p>
             <Button 
               onClick={() => navigate('/catalog')} 
-              className="btn-primary rounded-xl px-8 py-3"
+              className="btn-primary px-8 py-3"
             >
               Browse Collection
             </Button>
@@ -292,7 +292,7 @@ const Wishlist = () => {
                   inStockItems.forEach(item => addToCartFromWishlist(item));
                 }}
                 disabled={wishlistItems.every(item => item.stock === 0)}
-                className="btn-primary rounded-xl px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add All to Cart
               </Button>
@@ -309,7 +309,7 @@ const Wishlist = () => {
                     message: 'All items have been removed from your wishlist.'
                   });
                 }}
-                className="btn-secondary rounded-xl px-6 py-3"
+                className="btn-secondary px-6 py-3"
               >
                 Clear Wishlist
               </Button>

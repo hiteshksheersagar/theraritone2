@@ -142,8 +142,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen text-white relative">
-      {/* Live Animated Background */}
+    <div className="min-h-screen text-white relative full-bleed">
+      {/* Live Animated Cosmic Background */}
       <LiveBackground />
 
       {/* Navigation */}
@@ -160,7 +160,7 @@ const Index = () => {
         </div>
         
         {/* Dark gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" style={{ zIndex: 2 }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" style={{ zIndex: 2 }} />
 
         {/* Hero Content */}
         <motion.div 
@@ -198,7 +198,7 @@ const Index = () => {
               transition={{ duration: 1, delay: 1.6 }}
             >
               <motion.button
-                className="btn-primary font-medium flex items-center space-x-3 rounded-full justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
+                className="btn-primary font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
                 onClick={() => navigate('/scan')}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -208,7 +208,7 @@ const Index = () => {
               </motion.button>
               
               <motion.button
-                className="btn-secondary font-medium flex items-center space-x-3 rounded-full justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
+                className="btn-secondary font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
                 onClick={() => navigate('/catalog')}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -248,7 +248,7 @@ const Index = () => {
             viewport={{ once: true }}
           >
             <h2 className="hero-title mb-6 flex items-center justify-center">
-              <Shield className="mr-4" size={isMobile ? 28 : 40} color="var(--primary-accent)" />
+              <Shield className="mr-4" size={isMobile ? 28 : 40} color="var(--soft-tan)" />
               AI Body Scan Benefits
             </h2>
             <p className="hero-subtitle max-w-3xl mx-auto px-4">
@@ -283,7 +283,7 @@ const Index = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
               >
-                <feature.icon size={56} color="var(--primary-accent)" className="mx-auto mb-6" />
+                <feature.icon size={56} color="var(--soft-tan)" className="mx-auto mb-6" />
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
               </motion.div>
@@ -309,7 +309,7 @@ const Index = () => {
             viewport={{ once: true }}
           >
             <h2 className="hero-title mb-6 flex items-center justify-center">
-              <TrendingUp className="mr-4" size={isMobile ? 28 : 40} color="var(--primary-accent)" />
+              <TrendingUp className="mr-4" size={isMobile ? 28 : 40} color="var(--soft-tan)" />
               Shop by Category
             </h2>
             <p className="hero-subtitle max-w-3xl mx-auto px-4">
@@ -338,10 +338,10 @@ const Index = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-semibold mb-1 text-white text-lg sm:text-xl">
+                      <h3 className="font-semibold mb-1 text-white text-lg sm:text-xl luxury-heading">
                         {category.name}
                       </h3>
-                      <p className="text-white/80 text-sm">
+                      <p className="text-white/80 text-sm luxury-body">
                         {category.count}
                       </p>
                     </div>
@@ -375,7 +375,7 @@ const Index = () => {
                   className="h-16 sm:h-20 w-auto mb-6"
                   whileHover={{ scale: 1.05 }}
                 />
-                <p className="text-[var(--secondary-accent)] max-w-md leading-relaxed text-sm sm:text-base">
+                <p className="text-[var(--olive-green)] max-w-md leading-relaxed text-sm sm:text-base luxury-body">
                   Revolutionizing fashion with AI-powered body scanning technology. 
                   Experience perfect fit and personalized style recommendations across India.
                 </p>
@@ -383,7 +383,7 @@ const Index = () => {
 
               {/* Quick Links */}
               <div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg">Quick Links</h3>
+                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg luxury-heading">Quick Links</h3>
                 <ul className="space-y-3">
                   {[
                     { label: 'About Us', href: '#about' },
@@ -394,7 +394,7 @@ const Index = () => {
                     <li key={link.label}>
                       <motion.a 
                         href={link.href} 
-                        className="text-[var(--secondary-accent)] hover:text-[var(--primary-accent)] text-sm sm:text-base transition-colors"
+                        className="text-[var(--text-primary)] hover:text-[var(--olive-green)] text-sm sm:text-base transition-colors luxury-body"
                         whileHover={{ x: 5 }}
                       >
                         {link.label}
@@ -406,7 +406,7 @@ const Index = () => {
 
               {/* Contact Info */}
               <div id="contact">
-                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg">Contact</h3>
+                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg luxury-heading">Contact</h3>
                 <div className="space-y-4">
                   {[
                     { icon: Mail, text: 'hello@raritone.in' },
@@ -418,8 +418,8 @@ const Index = () => {
                       className="flex items-center space-x-3"
                       whileHover={{ x: 5 }}
                     >
-                      <contact.icon size={16} className="text-[var(--secondary-accent)]" />
-                      <span className="text-[var(--secondary-accent)] text-sm sm:text-base">
+                      <contact.icon size={16} className="text-[var(--olive-green)]" />
+                      <span className="text-[var(--text-primary)] text-sm sm:text-base luxury-body">
                         {contact.text}
                       </span>
                     </motion.div>
@@ -432,15 +432,15 @@ const Index = () => {
             <div className="section-divider border-t mt-12 pt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div id="privacy">
-                  <h3 className="font-semibold text-[var(--text-primary)] mb-4">Privacy Policy</h3>
-                  <p className="text-[var(--secondary-accent)] text-sm leading-relaxed">
+                  <h3 className="font-semibold text-[var(--text-primary)] mb-4 luxury-heading">Privacy Policy</h3>
+                  <p className="text-[var(--olive-green)] text-sm leading-relaxed luxury-body">
                     Your privacy is our priority. We use advanced encryption and never store your body scan data. 
                     All measurements are processed locally on your device for complete security.
                   </p>
                 </div>
                 <div id="returns">
-                  <h3 className="font-semibold text-[var(--text-primary)] mb-4">Returns & Exchanges</h3>
-                  <p className="text-[var(--secondary-accent)] text-sm leading-relaxed">
+                  <h3 className="font-semibold text-[var(--text-primary)] mb-4 luxury-heading">Returns & Exchanges</h3>
+                  <p className="text-[var(--olive-green)] text-sm leading-relaxed luxury-body">
                     30-day hassle-free returns. Free size exchanges. If our AI recommendation doesn't fit perfectly, 
                     we'll make it right with no questions asked.
                   </p>
@@ -448,7 +448,7 @@ const Index = () => {
               </div>
               
               <div className="text-center">
-                <p className="text-[var(--secondary-accent)] text-xs sm:text-sm">
+                <p className="text-[var(--olive-green)] text-xs sm:text-sm luxury-body">
                   © 2025 RARITONE. All rights reserved. | Powered by AI Fashion Technology | Made in India
                 </p>
               </div>

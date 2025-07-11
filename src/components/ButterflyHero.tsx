@@ -10,17 +10,20 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
 
-  // Transform values for scroll-based animation
-  const butterflyY = useTransform(scrollY, [0, 300], [0, -200]);
-  const butterflyScale = useTransform(scrollY, [0, 300], [1, 0.3]);
-  const butterflyOpacity = useTransform(scrollY, [0, 200, 300], [1, 0.8, 0]);
-  const logoOpacity = useTransform(scrollY, [200, 300], [0, 1]);
+  // Transform values for scroll-based animation with easing
+  const butterflyY = useTransform(scrollY, [0, 400], [0, -300], { ease: [0.4, 0, 0.2, 1] });
+  const butterflyScale = useTransform(scrollY, [0, 400], [1, 0.2], { ease: [0.4, 0, 0.2, 1] });
+  const butterflyOpacity = useTransform(scrollY, [0, 300, 400], [1, 0.8, 0], { ease: [0.4, 0, 0.2, 1] });
+  const logoOpacity = useTransform(scrollY, [300, 400], [0, 1], { ease: [0.4, 0, 0.2, 1] });
 
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
-      if (latest > 350) {
+      if (latest > 450) {
         setIsVisible(false);
-        onAnimationComplete?.();
+        // Delay navbar appearance until butterfly is completely gone
+        setTimeout(() => {
+          onAnimationComplete?.();
+        }, 800);
       } else {
         setIsVisible(true);
       }
@@ -40,190 +43,237 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
               scale: butterflyScale,
               opacity: butterflyOpacity,
             }}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.3 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 0.1 }}
+            transition={{ 
+              duration: 2, 
+              ease: [0.4, 0, 0.2, 1],
+              opacity: { duration: 1.5 }
+            }}
           >
-            {/* Abstract Butterfly Design */}
+            {/* Abstract Futuristic Butterfly Design */}
             <motion.div
               className="relative"
               style={{
-                width: '80vw',
-                height: '60vh',
-                maxWidth: '800px',
-                maxHeight: '600px',
+                width: '90vw',
+                height: '70vh',
+                maxWidth: '900px',
+                maxHeight: '700px',
               }}
               animate={{
                 scale: [1, 1.02, 1],
-                rotateY: [0, 2, 0],
+                rotateY: [0, 1, 0],
               }}
               transition={{
                 repeat: Infinity,
-                duration: 8,
+                duration: 12,
                 ease: "easeInOut"
               }}
             >
-              {/* Butterfly SVG */}
+              {/* Futuristic Butterfly SVG */}
               <svg
-                viewBox="0 0 800 600"
+                viewBox="0 0 900 700"
                 className="w-full h-full"
                 style={{ 
-                  filter: 'drop-shadow(0 0 40px rgba(209, 169, 128, 0.6))',
+                  filter: 'drop-shadow(0 0 60px rgba(209, 169, 128, 0.8))',
                 }}
               >
                 <defs>
                   <linearGradient id="wingGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(209, 169, 128, 0.8)" />
-                    <stop offset="50%" stopColor="rgba(116, 136, 115, 0.6)" />
-                    <stop offset="100%" stopColor="rgba(209, 169, 128, 0.4)" />
+                    <stop offset="0%" stopColor="rgba(209, 169, 128, 0.9)" />
+                    <stop offset="30%" stopColor="rgba(116, 136, 115, 0.7)" />
+                    <stop offset="70%" stopColor="rgba(209, 169, 128, 0.5)" />
+                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.3)" />
                   </linearGradient>
                   <linearGradient id="wingGradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(209, 169, 128, 0.8)" />
-                    <stop offset="50%" stopColor="rgba(116, 136, 115, 0.6)" />
-                    <stop offset="100%" stopColor="rgba(209, 169, 128, 0.4)" />
+                    <stop offset="0%" stopColor="rgba(209, 169, 128, 0.9)" />
+                    <stop offset="30%" stopColor="rgba(116, 136, 115, 0.7)" />
+                    <stop offset="70%" stopColor="rgba(209, 169, 128, 0.5)" />
+                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.3)" />
                   </linearGradient>
                   <radialGradient id="bodyGradient" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stopColor="rgba(209, 169, 128, 1)" />
-                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.8)" />
+                    <stop offset="50%" stopColor="rgba(116, 136, 115, 0.9)" />
+                    <stop offset="100%" stopColor="rgba(57, 62, 70, 0.8)" />
                   </radialGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge> 
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
 
-                {/* Left Upper Wing */}
+                {/* Left Upper Wing - Abstract Curved Form */}
                 <motion.path
-                  d="M400 300 Q200 150 100 200 Q50 250 80 320 Q120 400 200 420 Q300 430 380 380 Q390 340 400 300"
+                  d="M450 350 Q200 120 80 180 Q20 230 50 320 Q90 450 180 480 Q320 500 420 420 Q440 385 450 350"
                   fill="url(#wingGradient1)"
-                  stroke="rgba(209, 169, 128, 0.8)"
+                  stroke="rgba(209, 169, 128, 0.9)"
                   strokeWidth="2"
+                  filter="url(#glow)"
                   animate={{
                     d: [
-                      "M400 300 Q200 150 100 200 Q50 250 80 320 Q120 400 200 420 Q300 430 380 380 Q390 340 400 300",
-                      "M400 300 Q190 140 90 190 Q40 240 70 310 Q110 390 190 410 Q290 420 370 370 Q380 330 400 300",
-                      "M400 300 Q200 150 100 200 Q50 250 80 320 Q120 400 200 420 Q300 430 380 380 Q390 340 400 300"
+                      "M450 350 Q200 120 80 180 Q20 230 50 320 Q90 450 180 480 Q320 500 420 420 Q440 385 450 350",
+                      "M450 350 Q190 110 70 170 Q10 220 40 310 Q80 440 170 470 Q310 490 410 410 Q430 375 450 350",
+                      "M450 350 Q200 120 80 180 Q20 230 50 320 Q90 450 180 480 Q320 500 420 420 Q440 385 450 350"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 6,
+                    duration: 8,
                     ease: "easeInOut"
                   }}
                 />
 
-                {/* Right Upper Wing */}
+                {/* Right Upper Wing - Abstract Curved Form */}
                 <motion.path
-                  d="M400 300 Q600 150 700 200 Q750 250 720 320 Q680 400 600 420 Q500 430 420 380 Q410 340 400 300"
+                  d="M450 350 Q700 120 820 180 Q880 230 850 320 Q810 450 720 480 Q580 500 480 420 Q460 385 450 350"
                   fill="url(#wingGradient2)"
-                  stroke="rgba(209, 169, 128, 0.8)"
+                  stroke="rgba(209, 169, 128, 0.9)"
                   strokeWidth="2"
+                  filter="url(#glow)"
                   animate={{
                     d: [
-                      "M400 300 Q600 150 700 200 Q750 250 720 320 Q680 400 600 420 Q500 430 420 380 Q410 340 400 300",
-                      "M400 300 Q610 140 710 190 Q760 240 730 310 Q690 390 610 410 Q510 420 430 370 Q420 330 400 300",
-                      "M400 300 Q600 150 700 200 Q750 250 720 320 Q680 400 600 420 Q500 430 420 380 Q410 340 400 300"
+                      "M450 350 Q700 120 820 180 Q880 230 850 320 Q810 450 720 480 Q580 500 480 420 Q460 385 450 350",
+                      "M450 350 Q710 110 830 170 Q890 220 860 310 Q820 440 730 470 Q590 490 490 410 Q470 375 450 350",
+                      "M450 350 Q700 120 820 180 Q880 230 850 320 Q810 450 720 480 Q580 500 480 420 Q460 385 450 350"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 6,
+                    duration: 8,
                     ease: "easeInOut",
-                    delay: 0.2
+                    delay: 0.3
                   }}
                 />
 
-                {/* Left Lower Wing */}
+                {/* Left Lower Wing - Elegant Tail */}
                 <motion.path
-                  d="M400 300 Q350 400 300 450 Q250 500 200 480 Q150 450 170 400 Q200 350 250 330 Q320 310 400 300"
-                  fill="rgba(116, 136, 115, 0.6)"
-                  stroke="rgba(116, 136, 115, 0.8)"
+                  d="M450 350 Q380 480 320 540 Q260 600 200 580 Q140 550 160 480 Q190 420 240 390 Q350 360 450 350"
+                  fill="rgba(116, 136, 115, 0.7)"
+                  stroke="rgba(116, 136, 115, 0.9)"
                   strokeWidth="2"
+                  filter="url(#glow)"
                   animate={{
                     d: [
-                      "M400 300 Q350 400 300 450 Q250 500 200 480 Q150 450 170 400 Q200 350 250 330 Q320 310 400 300",
-                      "M400 300 Q340 390 290 440 Q240 490 190 470 Q140 440 160 390 Q190 340 240 320 Q310 300 400 300",
-                      "M400 300 Q350 400 300 450 Q250 500 200 480 Q150 450 170 400 Q200 350 250 330 Q320 310 400 300"
+                      "M450 350 Q380 480 320 540 Q260 600 200 580 Q140 550 160 480 Q190 420 240 390 Q350 360 450 350",
+                      "M450 350 Q370 470 310 530 Q250 590 190 570 Q130 540 150 470 Q180 410 230 380 Q340 350 450 350",
+                      "M450 350 Q380 480 320 540 Q260 600 200 580 Q140 550 160 480 Q190 420 240 390 Q350 360 450 350"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 6,
-                    ease: "easeInOut",
-                    delay: 0.4
-                  }}
-                />
-
-                {/* Right Lower Wing */}
-                <motion.path
-                  d="M400 300 Q450 400 500 450 Q550 500 600 480 Q650 450 630 400 Q600 350 550 330 Q480 310 400 300"
-                  fill="rgba(116, 136, 115, 0.6)"
-                  stroke="rgba(116, 136, 115, 0.8)"
-                  strokeWidth="2"
-                  animate={{
-                    d: [
-                      "M400 300 Q450 400 500 450 Q550 500 600 480 Q650 450 630 400 Q600 350 550 330 Q480 310 400 300",
-                      "M400 300 Q460 390 510 440 Q560 490 610 470 Q660 440 640 390 Q610 340 560 320 Q490 300 400 300",
-                      "M400 300 Q450 400 500 450 Q550 500 600 480 Q650 450 630 400 Q600 350 550 330 Q480 310 400 300"
-                    ]
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 6,
+                    duration: 8,
                     ease: "easeInOut",
                     delay: 0.6
                   }}
                 />
 
-                {/* Butterfly Body */}
-                <motion.ellipse
-                  cx="400"
-                  cy="300"
-                  rx="8"
-                  ry="120"
-                  fill="url(#bodyGradient)"
+                {/* Right Lower Wing - Elegant Tail */}
+                <motion.path
+                  d="M450 350 Q520 480 580 540 Q640 600 700 580 Q760 550 740 480 Q710 420 660 390 Q550 360 450 350"
+                  fill="rgba(116, 136, 115, 0.7)"
+                  stroke="rgba(116, 136, 115, 0.9)"
+                  strokeWidth="2"
+                  filter="url(#glow)"
                   animate={{
-                    ry: [120, 125, 120],
+                    d: [
+                      "M450 350 Q520 480 580 540 Q640 600 700 580 Q760 550 740 480 Q710 420 660 390 Q550 360 450 350",
+                      "M450 350 Q530 470 590 530 Q650 590 710 570 Q770 540 750 470 Q720 410 670 380 Q560 350 450 350",
+                      "M450 350 Q520 480 580 540 Q640 600 700 580 Q760 550 740 480 Q710 420 660 390 Q550 360 450 350"
+                    ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 4,
+                    duration: 8,
+                    ease: "easeInOut",
+                    delay: 0.9
+                  }}
+                />
+
+                {/* Central Body - Elegant and Minimal */}
+                <motion.ellipse
+                  cx="450"
+                  cy="350"
+                  rx="12"
+                  ry="140"
+                  fill="url(#bodyGradient)"
+                  filter="url(#glow)"
+                  animate={{
+                    ry: [140, 145, 140],
+                    opacity: [0.9, 1, 0.9]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 6,
                     ease: "easeInOut"
                   }}
                 />
 
-                {/* Wing Details */}
+                {/* Wing Detail Patterns */}
                 <motion.circle
-                  cx="250"
-                  cy="280"
-                  r="15"
-                  fill="rgba(209, 169, 128, 0.4)"
+                  cx="280"
+                  cy="320"
+                  r="20"
+                  fill="rgba(209, 169, 128, 0.5)"
                   animate={{
-                    r: [15, 18, 15],
-                    opacity: [0.4, 0.7, 0.4]
+                    r: [20, 25, 20],
+                    opacity: [0.5, 0.8, 0.5]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 5,
+                    duration: 7,
                     ease: "easeInOut"
                   }}
                 />
                 <motion.circle
-                  cx="550"
-                  cy="280"
-                  r="15"
-                  fill="rgba(209, 169, 128, 0.4)"
+                  cx="620"
+                  cy="320"
+                  r="20"
+                  fill="rgba(209, 169, 128, 0.5)"
                   animate={{
-                    r: [15, 18, 15],
-                    opacity: [0.4, 0.7, 0.4]
+                    r: [20, 25, 20],
+                    opacity: [0.5, 0.8, 0.5]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 5,
+                    duration: 7,
                     ease: "easeInOut",
-                    delay: 1
+                    delay: 1.5
+                  }}
+                />
+
+                {/* Elegant Wing Veins */}
+                <motion.path
+                  d="M450 350 Q350 280 250 300"
+                  stroke="rgba(209, 169, 128, 0.6)"
+                  strokeWidth="1.5"
+                  fill="none"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 10,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.path
+                  d="M450 350 Q550 280 650 300"
+                  stroke="rgba(209, 169, 128, 0.6)"
+                  strokeWidth="1.5"
+                  fill="none"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 10,
+                    ease: "easeInOut",
+                    delay: 2
                   }}
                 />
               </svg>
 
-              {/* RARITONE Logo Integration */}
+              {/* RARITONE Logo Integration - Appears on Scroll */}
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
                 style={{ opacity: logoOpacity }}
@@ -231,9 +281,9 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
                 <img
                   src="/IMG-20250305-WA0003-removebg-preview.png"
                   alt="RARITONE"
-                  className="h-16 w-auto"
+                  className="h-20 w-auto"
                   style={{
-                    filter: 'drop-shadow(0 0 20px rgba(209, 169, 128, 0.8))',
+                    filter: 'drop-shadow(0 0 30px rgba(209, 169, 128, 1))',
                   }}
                 />
               </motion.div>
@@ -242,19 +292,19 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
         )}
       </AnimatePresence>
 
-      {/* Ambient Light Effects */}
+      {/* Ambient Cosmic Light Effects */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
           background: [
-            'radial-gradient(circle at 30% 40%, rgba(209, 169, 128, 0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 70% 60%, rgba(116, 136, 115, 0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 30% 40%, rgba(209, 169, 128, 0.1) 0%, transparent 50%)'
+            'radial-gradient(circle at 30% 40%, rgba(209, 169, 128, 0.08) 0%, transparent 60%)',
+            'radial-gradient(circle at 70% 60%, rgba(116, 136, 115, 0.06) 0%, transparent 60%)',
+            'radial-gradient(circle at 30% 40%, rgba(209, 169, 128, 0.08) 0%, transparent 60%)'
           ]
         }}
         transition={{
           repeat: Infinity,
-          duration: 10,
+          duration: 15,
           ease: "easeInOut"
         }}
       />
