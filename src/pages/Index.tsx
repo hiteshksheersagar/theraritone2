@@ -143,7 +143,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen text-white relative full-bleed">
-      {/* Live Animated Cosmic Background */}
+      {/* Enhanced Live Animated Cosmic Background */}
       <LiveBackground />
 
       {/* Navigation */}
@@ -152,53 +152,53 @@ const Index = () => {
         onCartOpen={() => {}}
       />
 
-      {/* ENHANCED HERO SECTION WITH BUTTERFLY */}
+      {/* ENHANCED HERO SECTION WITH IMPROVED BUTTERFLY */}
       <div className="relative min-h-screen overflow-hidden flex items-center justify-center">
         {/* Butterfly Hero Animation */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
           <ButterflyHero onAnimationComplete={handleButterflyComplete} />
         </div>
         
-        {/* Dark gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" style={{ zIndex: 2 }} />
+        {/* Enhanced dark gradient overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" style={{ zIndex: 2 }} />
 
-        {/* Hero Content */}
+        {/* Hero Content - Moved Below Butterfly */}
         <motion.div 
           className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-8" 
-          style={{ zIndex: 3 }}
+          style={{ zIndex: 3, marginTop: '20vh' }}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 1.2, delay: 1.5 }}
         >
           <div className="p-8 sm:p-12 lg:p-16">
             <motion.h1 
-              className="hero-title mb-8"
+              className="hero-title mb-8 text-shadow-strong"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
+              transition={{ duration: 1.2, delay: 2 }}
             >
               AI-Powered Fashion
             </motion.h1>
 
             <motion.p 
-              className="hero-subtitle font-light mb-16 opacity-90 max-w-2xl mx-auto" 
+              className="hero-subtitle font-light mb-16 opacity-90 max-w-2xl mx-auto text-shadow-strong" 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.3 }}
+              transition={{ duration: 1.2, delay: 2.3 }}
             >
               Experience the future of fashion with our revolutionary AI body scanning technology. 
               Perfect fit, every time.
             </motion.p>
 
-            {/* CTA BUTTONS */}
+            {/* Enhanced CTA BUTTONS with New Design */}
             <motion.div 
               className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.6 }}
+              transition={{ duration: 1.2, delay: 2.6 }}
             >
               <motion.button
-                className="btn-primary font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
+                className="universal-btn font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-8 py-4 text-base"
                 onClick={() => navigate('/scan')}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -208,7 +208,7 @@ const Index = () => {
               </motion.button>
               
               <motion.button
-                className="btn-secondary font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base"
+                className="universal-btn-secondary font-medium flex items-center space-x-3 justify-center w-full max-w-xs sm:min-w-[220px] px-8 py-4 text-base"
                 onClick={() => navigate('/catalog')}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -218,14 +218,14 @@ const Index = () => {
               </motion.button>
             </motion.div>
 
-            {/* Privacy Notice */}
+            {/* Enhanced Privacy Notice */}
             <motion.p 
-              className="max-w-md mx-auto leading-relaxed text-xs sm:text-sm px-4 opacity-70 glass-morphism rounded-lg p-4"
+              className="max-w-md mx-auto leading-relaxed text-sm px-4 opacity-80 glass-morphism rounded-lg p-4 text-shadow-strong"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 2 }}
+              transition={{ duration: 1.2, delay: 3 }}
             >
-              🔒 Your privacy is protected. Camera data is processed locally and never stored.
+              Your privacy is protected. Camera data is processed locally and never stored.
             </motion.p>
           </div>
         </motion.div>
@@ -247,11 +247,11 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="hero-title mb-6 flex items-center justify-center">
+            <h2 className="hero-title mb-6 flex items-center justify-center text-shadow-strong">
               <Shield className="mr-4" size={isMobile ? 28 : 40} color="var(--soft-tan)" />
               AI Body Scan Benefits
             </h2>
-            <p className="hero-subtitle max-w-3xl mx-auto px-4">
+            <p className="hero-subtitle max-w-3xl mx-auto px-4 text-shadow-strong">
               Revolutionary technology that ensures perfect fit every time with complete privacy and precision.
             </p>
           </motion.div>
@@ -308,11 +308,11 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="hero-title mb-6 flex items-center justify-center">
+            <h2 className="hero-title mb-6 flex items-center justify-center text-shadow-strong">
               <TrendingUp className="mr-4" size={isMobile ? 28 : 40} color="var(--soft-tan)" />
               Shop by Category
             </h2>
-            <p className="hero-subtitle max-w-3xl mx-auto px-4">
+            <p className="hero-subtitle max-w-3xl mx-auto px-4 text-shadow-strong">
               Explore our curated collection of premium fashion categories, each designed with AI-powered precision.
             </p>
           </motion.div>
@@ -338,10 +338,10 @@ const Index = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-semibold mb-1 text-white text-lg sm:text-xl luxury-heading">
+                      <h3 className="font-semibold mb-1 text-white text-lg sm:text-xl luxury-heading text-shadow-strong">
                         {category.name}
                       </h3>
-                      <p className="text-white/80 text-sm luxury-body">
+                      <p className="text-white/80 text-sm luxury-body text-shadow-strong">
                         {category.count}
                       </p>
                     </div>
@@ -356,7 +356,7 @@ const Index = () => {
       {/* CUSTOMER REVIEWS SECTION */}
       <CustomerReviews />
 
-      {/* FOOTER SECTION */}
+      {/* ENHANCED FOOTER SECTION */}
       <footer className="luxury-footer py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -370,7 +370,7 @@ const Index = () => {
               {/* Brand Section */}
               <div className="lg:col-span-2" id="about">
                 <motion.img
-                  src="/IMG-20250305-WA0003-removebg-preview.png"
+                  src="/IMG-20250305-WA0003 (1)-Photoroom.png"
                   alt="RARITONE"
                   className="h-16 sm:h-20 w-auto mb-6"
                   whileHover={{ scale: 1.05 }}
