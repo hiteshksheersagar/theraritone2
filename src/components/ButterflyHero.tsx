@@ -52,6 +52,31 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
               opacity: { duration: 1.5 }
             }}
           >
+            {/* RARITONE Logo positioned above butterfly */}
+            <motion.div
+              className="absolute top-0 left-1/2 transform -translate-x-1/2"
+              style={{
+                top: '-15vh',
+                zIndex: 10
+              }}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 2, 
+                ease: easeInOut,
+                delay: 0.5
+              }}
+            >
+              <img
+                src="/IMG-20250305-WA0003 (1)-Photoroom.png"
+                alt="RARITONE"
+                className="h-16 sm:h-20 lg:h-24 w-auto"
+                style={{
+                  filter: 'drop-shadow(0 0 30px rgba(209, 169, 128, 0.8))',
+                }}
+              />
+            </motion.div>
+
             {/* Abstract Futuristic Butterfly Design */}
             <motion.div
               className="relative"
