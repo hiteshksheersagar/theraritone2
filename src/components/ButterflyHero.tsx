@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, easeInOut } from 'framer-motion';
 
 interface ButterflyHeroProps {
   onAnimationComplete?: () => void;
@@ -11,10 +11,10 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
   const [isVisible, setIsVisible] = useState(true);
 
   // Transform values for scroll-based animation with easing
-  const butterflyY = useTransform(scrollY, [0, 400], [0, -300], { ease: [0.4, 0, 0.2, 1] });
-  const butterflyScale = useTransform(scrollY, [0, 400], [1, 0.2], { ease: [0.4, 0, 0.2, 1] });
-  const butterflyOpacity = useTransform(scrollY, [0, 300, 400], [1, 0.8, 0], { ease: [0.4, 0, 0.2, 1] });
-  const logoOpacity = useTransform(scrollY, [300, 400], [0, 1], { ease: [0.4, 0, 0.2, 1] });
+  const butterflyY = useTransform(scrollY, [0, 400], [0, -300], { ease: easeInOut });
+  const butterflyScale = useTransform(scrollY, [0, 400], [1, 0.2], { ease: easeInOut });
+  const butterflyOpacity = useTransform(scrollY, [0, 300, 400], [1, 0.8, 0], { ease: easeInOut });
+  const logoOpacity = useTransform(scrollY, [300, 400], [0, 1], { ease: easeInOut });
 
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
@@ -48,7 +48,7 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
             exit={{ opacity: 0, scale: 0.1 }}
             transition={{ 
               duration: 2, 
-              ease: [0.4, 0, 0.2, 1],
+              ease: easeInOut,
               opacity: { duration: 1.5 }
             }}
           >
