@@ -111,27 +111,22 @@ const ChatWidget: React.FC = () => {
       {/* LUXURY CHAT BUTTON */}
       <button
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 z-40 px-6 py-3 rounded-full transition-all duration-300 flex items-center space-x-3"
+        className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full transition-all duration-300 flex items-center space-x-2 backdrop-blur-sm"
         style={{
-          background: 'rgba(24, 28, 20, 0.85)',
-          backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(209, 169, 128, 0.3)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+          background: 'rgba(0, 0, 0, 0.7)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
         }}
       >
         {/* Logo container */}
-        <div className="w-8 h-8 relative rounded-full overflow-hidden flex items-center justify-center border border-[rgba(209,169,128,0.4)]">
+        <div className="w-6 h-6 relative rounded-full overflow-hidden flex items-center justify-center">
           <img
             src="/R.png"
             alt="RARITONE Chat"
-            className="w-6 h-6 object-contain"
-            style={{
-              maxWidth: '36px',
-              maxHeight: '36px'
-            }}
+            className="w-4 h-4 object-contain"
           />
         </div>
-        <span className="font-medium text-[rgb(236,223,204)]">
+        <span className="font-medium text-white text-sm">
           Chat with us
         </span>
       </button>
@@ -141,24 +136,20 @@ const ChatWidget: React.FC = () => {
         <div 
           className="fixed bottom-24 right-6 z-50 w-96 rounded-2xl overflow-hidden transition-all duration-300"
           style={{
-            background: 'rgba(24, 28, 20, 0.9)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(209, 169, 128, 0.3)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)'
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)'
           }}
         >
           {/* Header */}
-          <div className="text-[rgb(236,223,204)] p-4 flex items-center justify-between border-b border-[rgba(209,169,128,0.3)]">
+          <div className="text-white p-4 flex items-center justify-between border-b border-gray-700">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center border border-[rgba(209,169,128,0.4)]">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center">
                 <img
                   src="/R.png"
                   alt="RARITONE"
                   className="w-6 h-6 object-contain"
-                  style={{
-                    maxWidth: '36px',
-                    maxHeight: '36px'
-                  }}
                 />
               </div>
               <span className="font-medium">Chat with a client advisor</span>
@@ -167,7 +158,7 @@ const ChatWidget: React.FC = () => {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="p-1 hover:bg-[rgba(209,169,128,0.2)] rounded transition-colors"
+                className="p-1 hover:bg-gray-700 rounded transition-colors"
               >
                 <ChevronDown 
                   size={16} 
@@ -176,7 +167,7 @@ const ChatWidget: React.FC = () => {
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 hover:bg-[rgba(209,169,128,0.2)] rounded transition-colors"
+                className="p-1 hover:bg-gray-700 rounded transition-colors"
               >
                 <X size={16} />
               </button>
@@ -187,27 +178,27 @@ const ChatWidget: React.FC = () => {
             <div>
               {/* Guest Email Form */}
               {showEmailForm && !user && (
-                <div className="p-4 border-b border-[rgba(209,169,128,0.3)]">
-                  <h4 className="font-medium mb-2 text-[rgb(236,223,204)]">Privacy Notice</h4>
+                <div className="p-4 border-b border-gray-700">
+                  <h4 className="font-medium mb-2 text-white">Privacy Notice</h4>
                   <form onSubmit={handleGuestEmailSubmit} className="space-y-3">
                     <input
                       type="email"
                       placeholder="Email"
                       value={guestEmail}
                       onChange={(e) => setGuestEmail(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-[rgba(60,61,55,0.8)] border border-[rgba(209,169,128,0.3)] text-[rgb(236,223,204)] placeholder-[rgb(105,117,101)]"
+                      className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400"
                       required
                     />
-                    <p className="text-xs text-[rgb(105,117,101)]">
+                    <p className="text-xs text-gray-400">
                       Your personal data is collected in the course of providing remote chat assistance and will be processed in full compliance with our privacy policy.
                     </p>
                     <div className="flex items-center space-x-2">
                       <input type="checkbox" id="accept" required className="rounded" />
-                      <label htmlFor="accept" className="text-xs text-[rgb(105,117,101)]">I accept</label>
+                      <label htmlFor="accept" className="text-xs text-gray-400">I accept</label>
                     </div>
                     <button
                       type="submit"
-                      className="w-full py-2 rounded-md font-medium bg-[rgb(236,223,204)] text-[rgb(24,28,20)] hover:bg-[rgb(220,210,190)]"
+                      className="w-full py-2 rounded-md font-medium bg-amber-600 text-black hover:bg-amber-700"
                     >
                       Start chat
                     </button>
@@ -227,8 +218,8 @@ const ChatWidget: React.FC = () => {
                         <div
                           className={`max-w-xs px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                             message.isAdmin
-                              ? 'bg-[rgba(60,61,55,0.8)] border border-[rgba(209,169,128,0.3)] text-[rgb(236,223,204)]'
-                              : 'bg-[rgb(236,223,204)] text-[rgb(24,28,20)]'
+                              ? 'bg-gray-700 text-white'
+                              : 'bg-amber-600 text-black'
                           }`}
                         >
                           {message.message}
@@ -239,11 +230,11 @@ const ChatWidget: React.FC = () => {
                     {/* Typing indicator */}
                     {isTyping && (
                       <div className="flex justify-start">
-                        <div className="bg-[rgba(60,61,55,0.8)] text-[rgb(236,223,204)] px-3 py-2 rounded-lg text-sm border border-[rgba(209,169,128,0.3)]">
+                        <div className="bg-gray-700 text-white px-3 py-2 rounded-lg text-sm">
                           <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-[rgb(105,117,101)] rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-[rgb(105,117,101)] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-[rgb(105,117,101)] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                           </div>
                         </div>
                       </div>
@@ -253,7 +244,7 @@ const ChatWidget: React.FC = () => {
                   </div>
 
                   {/* Message Input */}
-                  <div className="p-4 border-t border-[rgba(209,169,128,0.3)]">
+                  <div className="p-4 border-t border-gray-700">
                     <div className="flex space-x-2">
                       <input
                         type="text"
@@ -261,15 +252,15 @@ const ChatWidget: React.FC = () => {
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                        className="flex-1 px-3 py-2 rounded-lg bg-[rgba(60,61,55,0.8)] border border-[rgba(209,169,128,0.3)] text-[rgb(236,223,204)] placeholder-[rgb(105,117,101)]"
+                        className="flex-1 px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400"
                       />
                       <button
                         onClick={handleSendMessage}
-                        className="px-4 py-2 rounded-full font-medium bg-[rgb(236,223,204)] text-[rgb(24,28,20)] hover:bg-[rgb(220,210,190)]"
+                        className="px-4 py-2 rounded-full font-medium bg-amber-600 text-black hover:bg-amber-700"
                       >
                         <Send size={16} />
                       </button>
-                      <button className="px-4 py-2 rounded-full bg-[rgba(60,61,55,0.8)] border border-[rgba(209,169,128,0.3)] text-[rgb(236,223,204)] hover:bg-[rgba(105,117,101,0.2)]">
+                      <button className="px-4 py-2 rounded-full bg-gray-800 border border-gray-600 text-white hover:bg-gray-700">
                         <Mic size={16} />
                       </button>
                     </div>

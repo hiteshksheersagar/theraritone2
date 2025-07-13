@@ -12,10 +12,10 @@ interface NavbarProps {
   onCartOpen: () => void;
   pageTitle?: string;
   showBackButton?: boolean;
+  isVisible?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitle, showBackButton = false }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitle, showBackButton = false, isVisible = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -24,9 +24,6 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
   const navigate = useNavigate();
   const location = useLocation();
   const { user, cart, logout } = useAuth();
-
-  // Only enable scroll animations on homepage
-  const isHomepage = location.pathname === '/';
 
   // Detect mobile device
   useEffect(() => {
@@ -38,23 +35,6 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Enhanced navbar visibility with smoother scroll detection
-  useEffect(() => {
-    if (!isHomepage) {
-      setIsVisible(true);
-      return;
-    }
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      // Show navbar after butterfly animation completes (increased threshold for smoother transition)
-      setIsVisible(currentScrollY > 650);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomepage]);
 
   // Close menu when clicking outside or on route change
   useEffect(() => {
@@ -141,15 +121,14 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
     <>
       {/* ENHANCED LUXURY NAVBAR */}
       <AnimatePresence>
-        {(isVisible || !isHomepage) && (
+        {isVisible && (
           <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
             transition={{ 
-              duration: 1.2, 
+              duration: 0.6, 
               ease: [0.25, 0.46, 0.45, 0.94],
-              delay: isHomepage ? 0.8 : 0 // Extra delay for homepage smooth transition
             }}
             className="fixed top-0 left-0 right-0 z-50 h-20 luxury-navbar"
             data-menu-container
@@ -251,6 +230,9 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                       onClick={handleLogoClick}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      initial={{ scale: 0.6, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
                       style={{
                         height: isMobile ? '56px' : '72px',
                         width: 'auto',
@@ -329,10 +311,10 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="dropdown-menu border-t-0 rounded-t-none"
+                  className="dropdown-menu border-t-0 rounded-t-none max-w-md mx-auto"
                 >
-                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-                    <div className="flex justify-center gap-6 sm:gap-12 flex-wrap">
+                  <div className="px-4 sm:px-6 py-4 sm:py-6">
+                    <div className="flex justify-center gap-4 sm:gap-6 flex-wrap">
                       {menuItems.map((item) => (
                         <motion.div 
                           key={item.label} 
@@ -345,10 +327,10 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                               navigate(item.path);
                               setIsMenuOpen(false);
                             }}
-                            className="menu-item w-full text-center flex flex-col items-center px-4 py-6 sm:px-6 sm:py-8 space-y-3 sm:space-y-4 rounded-xl"
+                            className="menu-item w-full text-center flex flex-col items-center px-3 py-4 sm:px-4 sm:py-5 space-y-2 sm:space-y-3 rounded-xl"
                           >
-                            <item.icon size={28} color="var(--light-off-white)" />
-                            <span className="font-medium text-sm sm:text-base text-white luxury-body">{item.label}</span>
+                            <item.icon size={20} color="var(--light-off-white)" />
+                            <span className="font-medium text-xs sm:text-sm text-white luxury-body">{item.label}</span>
                           </button>
                         </motion.div>
                       ))}
