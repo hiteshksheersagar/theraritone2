@@ -228,7 +228,7 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                         {pageTitle}
                       </motion.h1>
                       <motion.img
-                        src="/IMG-20250305-WA0003 (1)-Photoroom.png"
+                        src="/Raritone.png"
                         alt="RARITONE"
                         className="navbar-logo absolute"
                         style={{
@@ -245,7 +245,7 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                     </motion.div>
                   ) : (
                     <motion.img
-                      src="/IMG-20250305-WA0003 (1)-Photoroom.png"
+                      src="/Raritone.png"
                       alt="RARITONE"
                       className="cursor-pointer transition-all duration-300 luxury-float"
                       onClick={handleLogoClick}

@@ -64,9 +64,9 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
               }}
             >
               <img
-                src="/IMG-20250305-WA0003 (1)-Photoroom.png"
+                src="/Raritone.png"
                 alt="RARITONE"
-                className="h-20 sm:h-24 lg:h-28 w-auto"
+                className="h-24 sm:h-28 lg:h-32 w-auto"
                 style={{
                   filter: 'drop-shadow(0 0 40px rgba(209, 169, 128, 0.9))',
                 }}
@@ -94,38 +94,39 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
             >
               {/* Anatomically Accurate Butterfly SVG */}
               <svg
-                viewBox="0 0 800 600"
+                viewBox="0 0 900 700"
                 className="w-full h-full"
                 style={{ 
-                  filter: 'drop-shadow(0 0 80px rgba(209, 169, 128, 0.7))',
+                  filter: 'drop-shadow(0 0 60px rgba(209, 169, 128, 0.5))',
                 }}
               >
                 <defs>
                   {/* Enhanced Gradients for Realistic Wing Patterns */}
-                  <radialGradient id="upperWingGradient" cx="30%" cy="40%" r="60%">
-                    <stop offset="0%" stopColor="rgba(209, 169, 128, 0.9)" />
-                    <stop offset="25%" stopColor="rgba(193, 154, 115, 0.8)" />
-                    <stop offset="50%" stopColor="rgba(116, 136, 115, 0.6)" />
-                    <stop offset="75%" stopColor="rgba(209, 169, 128, 0.4)" />
-                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.2)" />
+                  <radialGradient id="upperWingGradient" cx="35%" cy="45%" r="65%">
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0.8)" />
+                    <stop offset="20%" stopColor="rgba(209, 169, 128, 0.7)" />
+                    <stop offset="40%" stopColor="rgba(193, 154, 115, 0.6)" />
+                    <stop offset="60%" stopColor="rgba(116, 136, 115, 0.4)" />
+                    <stop offset="80%" stopColor="rgba(209, 169, 128, 0.3)" />
+                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.1)" />
                   </radialGradient>
                   
-                  <radialGradient id="lowerWingGradient" cx="40%" cy="60%" r="50%">
-                    <stop offset="0%" stopColor="rgba(116, 136, 115, 0.8)" />
-                    <stop offset="40%" stopColor="rgba(209, 169, 128, 0.6)" />
-                    <stop offset="80%" stopColor="rgba(116, 136, 115, 0.3)" />
-                    <stop offset="100%" stopColor="rgba(209, 169, 128, 0.1)" />
+                  <radialGradient id="lowerWingGradient" cx="45%" cy="65%" r="55%">
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
+                    <stop offset="30%" stopColor="rgba(116, 136, 115, 0.7)" />
+                    <stop offset="60%" stopColor="rgba(209, 169, 128, 0.5)" />
+                    <stop offset="100%" stopColor="rgba(116, 136, 115, 0.2)" />
                   </radialGradient>
 
                   <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(209, 169, 128, 1)" />
-                    <stop offset="30%" stopColor="rgba(193, 154, 115, 0.95)" />
-                    <stop offset="70%" stopColor="rgba(116, 136, 115, 0.9)" />
-                    <stop offset="100%" stopColor="rgba(57, 62, 70, 0.8)" />
+                    <stop offset="0%" stopColor="rgba(139, 69, 19, 0.9)" />
+                    <stop offset="30%" stopColor="rgba(160, 82, 45, 0.8)" />
+                    <stop offset="70%" stopColor="rgba(101, 67, 33, 0.7)" />
+                    <stop offset="100%" stopColor="rgba(62, 39, 35, 0.6)" />
                   </linearGradient>
 
                   <filter id="wingGlow">
-                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
                     <feMerge> 
                       <feMergeNode in="coloredBlur"/>
                       <feMergeNode in="SourceGraphic"/>
@@ -136,169 +137,165 @@ const ButterflyHero: React.FC<ButterflyHeroProps> = ({ onAnimationComplete }) =>
                 {/* Butterfly Body - More Realistic Segmented Body */}
                 <motion.g
                   animate={{
-                    scaleY: [1, 1.02, 1],
+                    scaleY: [1, 1.01, 1],
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 8,
+                    duration: 6,
                     ease: "easeInOut"
                   }}
                 >
                   {/* Main body */}
-                  <ellipse cx="400" cy="300" rx="8" ry="120" fill="url(#bodyGradient)" filter="url(#wingGlow)" />
+                  <ellipse cx="450" cy="350" rx="6" ry="100" fill="url(#bodyGradient)" />
                   
                   {/* Body segments for realism */}
-                  <ellipse cx="400" cy="250" rx="6" ry="12" fill="rgba(209, 169, 128, 0.9)" />
-                  <ellipse cx="400" cy="280" rx="7" ry="15" fill="rgba(193, 154, 115, 0.95)" />
-                  <ellipse cx="400" cy="320" rx="6" ry="14" fill="rgba(209, 169, 128, 0.9)" />
-                  <ellipse cx="400" cy="350" rx="5" ry="12" fill="rgba(116, 136, 115, 0.8)" />
+                  <ellipse cx="450" cy="280" rx="4" ry="8" fill="rgba(139, 69, 19, 0.8)" />
+                  <ellipse cx="450" cy="310" rx="5" ry="10" fill="rgba(160, 82, 45, 0.8)" />
+                  <ellipse cx="450" cy="350" rx="4" ry="9" fill="rgba(139, 69, 19, 0.7)" />
+                  <ellipse cx="450" cy="380" rx="3" ry="8" fill="rgba(101, 67, 33, 0.6)" />
                   
                   {/* Head */}
-                  <circle cx="400" cy="220" r="8" fill="rgba(209, 169, 128, 1)" />
+                  <circle cx="450" cy="260" r="6" fill="rgba(139, 69, 19, 0.9)" />
                 </motion.g>
                 
                 {/* LEFT UPPER WING - Anatomically Accurate Shape */}
                 <motion.path
-                  d="M400 280 Q280 150 150 180 Q80 210 90 280 Q100 350 180 380 Q260 400 340 370 Q380 340 400 300"
+                  d="M450 320 Q320 180 180 210 Q100 240 110 320 Q120 400 200 430 Q290 450 370 420 Q420 380 450 340"
                   fill="url(#upperWingGradient)"
-                  stroke="rgba(209, 169, 128, 0.8)"
-                  strokeWidth="1.5"
-                  filter="url(#wingGlow)"
+                  stroke="rgba(139, 69, 19, 0.4)"
+                  strokeWidth="1"
                   animate={{
                     d: [
-                      "M400 280 Q280 150 150 180 Q80 210 90 280 Q100 350 180 380 Q260 400 340 370 Q380 340 400 300",
-                      "M400 280 Q275 145 145 175 Q75 205 85 275 Q95 345 175 375 Q255 395 335 365 Q375 335 400 300",
-                      "M400 280 Q280 150 150 180 Q80 210 90 280 Q100 350 180 380 Q260 400 340 370 Q380 340 400 300"
+                      "M450 320 Q320 180 180 210 Q100 240 110 320 Q120 400 200 430 Q290 450 370 420 Q420 380 450 340",
+                      "M450 320 Q315 175 175 205 Q95 235 105 315 Q115 395 195 425 Q285 445 365 415 Q415 375 450 340",
+                      "M450 320 Q320 180 180 210 Q100 240 110 320 Q120 400 200 430 Q290 450 370 420 Q420 380 450 340"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 12,
+                    duration: 8,
                     ease: "easeInOut"
                   }}
                 />
                 
                 {/* RIGHT UPPER WING - Mirror of left wing */}
                 <motion.path
-                  d="M400 280 Q520 150 650 180 Q720 210 710 280 Q700 350 620 380 Q540 400 460 370 Q420 340 400 300"
+                  d="M450 320 Q580 180 720 210 Q800 240 790 320 Q780 400 700 430 Q610 450 530 420 Q480 380 450 340"
                   fill="url(#upperWingGradient)"
-                  stroke="rgba(209, 169, 128, 0.8)"
-                  strokeWidth="1.5"
-                  filter="url(#wingGlow)"
+                  stroke="rgba(139, 69, 19, 0.4)"
+                  strokeWidth="1"
                   animate={{
                     d: [
-                      "M400 280 Q520 150 650 180 Q720 210 710 280 Q700 350 620 380 Q540 400 460 370 Q420 340 400 300",
-                      "M400 280 Q525 145 655 175 Q725 205 715 275 Q705 345 625 375 Q545 395 465 365 Q425 335 400 300",
-                      "M400 280 Q520 150 650 180 Q720 210 710 280 Q700 350 620 380 Q540 400 460 370 Q420 340 400 300"
+                      "M450 320 Q580 180 720 210 Q800 240 790 320 Q780 400 700 430 Q610 450 530 420 Q480 380 450 340",
+                      "M450 320 Q585 175 725 205 Q805 235 795 315 Q785 395 705 425 Q615 445 535 415 Q485 375 450 340",
+                      "M450 320 Q580 180 720 210 Q800 240 790 320 Q780 400 700 430 Q610 450 530 420 Q480 380 450 340"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 12,
+                    duration: 8,
                     ease: "easeInOut",
-                    delay: 0.4
+                    delay: 0.2
                   }}
                 />
                 
                 {/* LEFT LOWER WING - Hindwing */}
                 <motion.path
-                  d="M400 320 Q340 420 280 460 Q220 500 200 540 Q210 580 250 570 Q300 550 350 520 Q380 480 400 440"
+                  d="M450 360 Q380 460 320 500 Q260 540 240 580 Q250 620 290 610 Q340 590 390 560 Q420 520 450 480"
                   fill="url(#lowerWingGradient)"
-                  stroke="rgba(116, 136, 115, 0.7)"
-                  strokeWidth="1.5"
-                  filter="url(#wingGlow)"
+                  stroke="rgba(139, 69, 19, 0.3)"
+                  strokeWidth="1"
                   animate={{
                     d: [
-                      "M400 320 Q340 420 280 460 Q220 500 200 540 Q210 580 250 570 Q300 550 350 520 Q380 480 400 440",
-                      "M400 320 Q335 415 275 455 Q215 495 195 535 Q205 575 245 565 Q295 545 345 515 Q375 475 400 440",
-                      "M400 320 Q340 420 280 460 Q220 500 200 540 Q210 580 250 570 Q300 550 350 520 Q380 480 400 440"
+                      "M450 360 Q380 460 320 500 Q260 540 240 580 Q250 620 290 610 Q340 590 390 560 Q420 520 450 480",
+                      "M450 360 Q375 455 315 495 Q255 535 235 575 Q245 615 285 605 Q335 585 385 555 Q415 515 450 480",
+                      "M450 360 Q380 460 320 500 Q260 540 240 580 Q250 620 290 610 Q340 590 390 560 Q420 520 450 480"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 12,
+                    duration: 8,
                     ease: "easeInOut",
-                    delay: 0.8
+                    delay: 0.4
                   }}
                 />
                 
                 {/* RIGHT LOWER WING - Hindwing */}
                 <motion.path
-                  d="M400 320 Q460 420 520 460 Q580 500 600 540 Q590 580 550 570 Q500 550 450 520 Q420 480 400 440"
+                  d="M450 360 Q520 460 580 500 Q640 540 660 580 Q650 620 610 610 Q560 590 510 560 Q480 520 450 480"
                   fill="url(#lowerWingGradient)"
-                  stroke="rgba(116, 136, 115, 0.7)"
-                  strokeWidth="1.5"
-                  filter="url(#wingGlow)"
+                  stroke="rgba(139, 69, 19, 0.3)"
+                  strokeWidth="1"
                   animate={{
                     d: [
-                      "M400 320 Q460 420 520 460 Q580 500 600 540 Q590 580 550 570 Q500 550 450 520 Q420 480 400 440",
-                      "M400 320 Q465 415 525 455 Q585 495 605 535 Q595 575 555 565 Q505 545 455 515 Q425 475 400 440",
-                      "M400 320 Q460 420 520 460 Q580 500 600 540 Q590 580 550 570 Q500 550 450 520 Q420 480 400 440"
+                      "M450 360 Q520 460 580 500 Q640 540 660 580 Q650 620 610 610 Q560 590 510 560 Q480 520 450 480",
+                      "M450 360 Q525 455 585 495 Q645 535 665 575 Q655 615 615 605 Q565 585 515 555 Q485 515 450 480",
+                      "M450 360 Q520 460 580 500 Q640 540 660 580 Q650 620 610 610 Q560 590 510 560 Q480 520 450 480"
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 12,
+                    duration: 8,
                     ease: "easeInOut",
-                    delay: 1.2
+                    delay: 0.6
                   }}
                 />
 
-                {/* Wing Vein Patterns - More Detailed and Realistic */}
+                {/* Wing Vein Patterns - Realistic and Subtle */}
                 <motion.g
-                  animate={{ opacity: [0.6, 0.9, 0.6] }}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
                   transition={{
                     repeat: Infinity,
-                    duration: 8,
+                    duration: 6,
                     ease: "easeInOut"
                   }}
                 >
                   {/* Left wing veins */}
-                  <path d="M400 280 Q320 240 240 260" stroke="rgba(209, 169, 128, 0.7)" strokeWidth="1" fill="none" />
-                  <path d="M380 300 Q300 280 220 300" stroke="rgba(209, 169, 128, 0.6)" strokeWidth="0.8" fill="none" />
-                  <path d="M360 320 Q280 320 200 340" stroke="rgba(209, 169, 128, 0.5)" strokeWidth="0.8" fill="none" />
+                  <path d="M450 320 Q360 280 280 300" stroke="rgba(139, 69, 19, 0.4)" strokeWidth="0.5" fill="none" />
+                  <path d="M430 340 Q340 320 260 340" stroke="rgba(139, 69, 19, 0.3)" strokeWidth="0.5" fill="none" />
+                  <path d="M410 360 Q320 360 240 380" stroke="rgba(139, 69, 19, 0.3)" strokeWidth="0.5" fill="none" />
                   
                   {/* Right wing veins */}
-                  <path d="M400 280 Q480 240 560 260" stroke="rgba(209, 169, 128, 0.7)" strokeWidth="1" fill="none" />
-                  <path d="M420 300 Q500 280 580 300" stroke="rgba(209, 169, 128, 0.6)" strokeWidth="0.8" fill="none" />
-                  <path d="M440 320 Q520 320 600 340" stroke="rgba(209, 169, 128, 0.5)" strokeWidth="0.8" fill="none" />
+                  <path d="M450 320 Q540 280 620 300" stroke="rgba(139, 69, 19, 0.4)" strokeWidth="0.5" fill="none" />
+                  <path d="M470 340 Q560 320 640 340" stroke="rgba(139, 69, 19, 0.3)" strokeWidth="0.5" fill="none" />
+                  <path d="M490 360 Q580 360 660 380" stroke="rgba(139, 69, 19, 0.3)" strokeWidth="0.5" fill="none" />
                 </motion.g>
 
-                {/* Wing Spots/Eyespots for Realism */}
+                {/* Wing Spots - Natural butterfly patterns */}
                 <motion.g
                   animate={{ 
-                    opacity: [0.4, 0.7, 0.4],
-                    scale: [1, 1.05, 1]
+                    opacity: [0.2, 0.5, 0.2],
+                    scale: [1, 1.02, 1]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 10,
+                    duration: 7,
                     ease: "easeInOut"
                   }}
                 >
-                  <circle cx="280" cy="280" r="15" fill="rgba(209, 169, 128, 0.6)" />
-                  <circle cx="280" cy="280" r="8" fill="rgba(116, 136, 115, 0.8)" />
-                  <circle cx="520" cy="280" r="15" fill="rgba(209, 169, 128, 0.6)" />
-                  <circle cx="520" cy="280" r="8" fill="rgba(116, 136, 115, 0.8)" />
+                  <circle cx="320" cy="320" r="12" fill="rgba(255, 255, 255, 0.4)" />
+                  <circle cx="320" cy="320" r="6" fill="rgba(139, 69, 19, 0.5)" />
+                  <circle cx="580" cy="320" r="12" fill="rgba(255, 255, 255, 0.4)" />
+                  <circle cx="580" cy="320" r="6" fill="rgba(139, 69, 19, 0.5)" />
                 </motion.g>
                 
                 {/* Antennae - More Detailed */}
                 <motion.g
                   animate={{ 
-                    rotate: [0, 2, -2, 0],
+                    rotate: [0, 1, -1, 0],
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 8,
+                    duration: 5,
                     ease: "easeInOut"
                   }}
                 >
-                  <path d="M390 210 Q385 190 380 170 Q378 160 375 150" stroke="rgba(209, 169, 128, 1)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                  <path d="M410 210 Q415 190 420 170 Q422 160 425 150" stroke="rgba(209, 169, 128, 1)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                  <path d="M440 250 Q435 230 430 210 Q428 200 425 190" stroke="rgba(139, 69, 19, 0.8)" strokeWidth="2" fill="none" strokeLinecap="round" />
+                  <path d="M460 250 Q465 230 470 210 Q472 200 475 190" stroke="rgba(139, 69, 19, 0.8)" strokeWidth="2" fill="none" strokeLinecap="round" />
                   
                   {/* Antennae clubs */}
-                  <ellipse cx="375" cy="148" rx="3" ry="6" fill="rgba(209, 169, 128, 1)" />
-                  <ellipse cx="425" cy="148" rx="3" ry="6" fill="rgba(209, 169, 128, 1)" />
+                  <ellipse cx="425" cy="188" rx="2" ry="4" fill="rgba(139, 69, 19, 0.9)" />
+                  <ellipse cx="475" cy="188" rx="2" ry="4" fill="rgba(139, 69, 19, 0.9)" />
                 </motion.g>
               </svg>
             </motion.div>

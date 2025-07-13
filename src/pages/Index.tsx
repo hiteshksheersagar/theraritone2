@@ -165,34 +165,33 @@ const Index = () => {
         {/* Hero Content - Moved Below Butterfly */}
         <motion.div 
           className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-8" 
-          style={{ zIndex: 3, marginTop: '20vh' }}
+          style={{ zIndex: 3, marginTop: '35vh' }}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.5 }}
         >
           <div className="p-8 sm:p-12 lg:p-16">
             <motion.h1 
-              className="hero-title mb-8 text-shadow-strong"
+              className="hero-title mb-12 text-shadow-strong"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 2 }}
             >
-              AI-Powered Fashion
+              Premium Fashion Collection
             </motion.h1>
 
             <motion.p 
-              className="hero-subtitle font-light mb-16 opacity-90 max-w-2xl mx-auto text-shadow-strong" 
+              className="hero-subtitle font-light mb-20 opacity-90 max-w-2xl mx-auto text-shadow-strong" 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 2.3 }}
             >
-              Experience the future of fashion with our revolutionary AI body scanning technology. 
-              Perfect fit, every time.
+              Discover our curated collection of premium fashion items designed for style and comfort.
             </motion.p>
 
             {/* Enhanced CTA BUTTONS with New Design */}
             <motion.div 
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-16"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 2.6 }}
@@ -204,7 +203,7 @@ const Index = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Camera size={isMobile ? 18 : 20} />
-                <span>Start Body Scan</span>
+                <span>Body Scan</span>
               </motion.button>
               
               <motion.button
@@ -225,7 +224,7 @@ const Index = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2, delay: 3 }}
             >
-              Your privacy is protected. Camera data is processed locally and never stored.
+              Discover fashion that fits your style perfectly.
             </motion.p>
           </div>
         </motion.div>
@@ -249,10 +248,10 @@ const Index = () => {
           >
             <h2 className="hero-title mb-6 flex items-center justify-center text-shadow-strong">
               <Shield className="mr-4" size={isMobile ? 28 : 40} color="var(--soft-tan)" />
-              AI Body Scan Benefits
+              Why Choose RARITONE
             </h2>
             <p className="hero-subtitle max-w-3xl mx-auto px-4 text-shadow-strong">
-              Revolutionary technology that ensures perfect fit every time with complete privacy and precision.
+              Experience premium fashion with exceptional quality and personalized service.
             </p>
           </motion.div>
 
@@ -260,18 +259,18 @@ const Index = () => {
             {[
               {
                 icon: Shield,
-                title: "100% Private",
-                description: "Body data never stored or sent online. All processing happens locally on your device for complete privacy."
+                title: "Premium Quality",
+                description: "Carefully curated collection of high-quality fashion items from trusted brands and designers."
               },
               {
                 icon: Zap,
-                title: "99% Accurate",
-                description: "AI scanning ensures near-perfect micro-fit. Our technology provides the most accurate measurements possible."
+                title: "Perfect Fit",
+                description: "Advanced sizing technology and detailed measurements ensure the perfect fit for every body type."
               },
               {
                 icon: Clock,
-                title: "30 Second Scan",
-                description: "Fast scan with only a smartphone camera. Get your perfect measurements in half a minute."
+                title: "Fast Delivery",
+                description: "Quick and reliable shipping across India with express delivery options available."
               }
             ].map((feature, index) => (
               <motion.div
@@ -357,10 +356,15 @@ const Index = () => {
       <CustomerReviews />
 
       {/* ENHANCED FOOTER SECTION */}
-      <footer className="luxury-footer py-12 sm:py-20">
+      <footer className="py-12 sm:py-20" style={{ background: 'rgba(24, 28, 20, 0.95)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            className="luxury-card rounded-2xl p-8 sm:p-12"
+            className="rounded-2xl p-8 sm:p-12"
+            style={{ 
+              background: 'rgba(60, 61, 55, 0.8)',
+              border: '1px solid rgba(209, 169, 128, 0.2)',
+              backdropFilter: 'blur(10px)'
+            }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -370,20 +374,20 @@ const Index = () => {
               {/* Brand Section */}
               <div className="lg:col-span-2" id="about">
                 <motion.img
-                  src="/IMG-20250305-WA0003 (1)-Photoroom.png"
+                  src="/Raritone.png"
                   alt="RARITONE"
                   className="h-16 sm:h-20 w-auto mb-6"
                   whileHover={{ scale: 1.05 }}
                 />
-                <p className="text-[var(--olive-green)] max-w-md leading-relaxed text-sm sm:text-base luxury-body">
-                  Revolutionizing fashion with AI-powered body scanning technology. 
-                  Experience perfect fit and personalized style recommendations across India.
+                <p className="text-[rgb(105,117,101)] max-w-md leading-relaxed text-sm sm:text-base luxury-body">
+                  Premium fashion collection with exceptional quality and style. 
+                  Experience luxury fashion with personalized service across India.
                 </p>
               </div>
 
               {/* Quick Links */}
               <div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg luxury-heading">Quick Links</h3>
+                <h3 className="font-semibold text-[rgb(236,223,204)] mb-6 text-base sm:text-lg luxury-heading">Quick Links</h3>
                 <ul className="space-y-3">
                   {[
                     { label: 'About Us', href: '#about' },
@@ -394,7 +398,7 @@ const Index = () => {
                     <li key={link.label}>
                       <motion.a 
                         href={link.href} 
-                        className="text-[var(--text-primary)] hover:text-[var(--olive-green)] text-sm sm:text-base transition-colors luxury-body"
+                        className="text-[rgb(236,223,204)] hover:text-[rgb(105,117,101)] text-sm sm:text-base transition-colors luxury-body"
                         whileHover={{ x: 5 }}
                       >
                         {link.label}
@@ -406,7 +410,7 @@ const Index = () => {
 
               {/* Contact Info */}
               <div id="contact">
-                <h3 className="font-semibold text-[var(--text-primary)] mb-6 text-base sm:text-lg luxury-heading">Contact</h3>
+                <h3 className="font-semibold text-[rgb(236,223,204)] mb-6 text-base sm:text-lg luxury-heading">Contact</h3>
                 <div className="space-y-4">
                   {[
                     { icon: Mail, text: 'hello@raritone.in' },
@@ -418,8 +422,8 @@ const Index = () => {
                       className="flex items-center space-x-3"
                       whileHover={{ x: 5 }}
                     >
-                      <contact.icon size={16} className="text-[var(--olive-green)]" />
-                      <span className="text-[var(--text-primary)] text-sm sm:text-base luxury-body">
+                      <contact.icon size={16} className="text-[rgb(105,117,101)]" />
+                      <span className="text-[rgb(236,223,204)] text-sm sm:text-base luxury-body">
                         {contact.text}
                       </span>
                     </motion.div>
@@ -432,15 +436,15 @@ const Index = () => {
             <div className="section-divider border-t mt-12 pt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div id="privacy">
-                  <h3 className="font-semibold text-[var(--text-primary)] mb-4 luxury-heading">Privacy Policy</h3>
-                  <p className="text-[var(--olive-green)] text-sm leading-relaxed luxury-body">
-                    Your privacy is our priority. We use advanced encryption and never store your body scan data. 
-                    All measurements are processed locally on your device for complete security.
+                  <h3 className="font-semibold text-[rgb(236,223,204)] mb-4 luxury-heading">Privacy Policy</h3>
+                  <p className="text-[rgb(105,117,101)] text-sm leading-relaxed luxury-body">
+                    Your privacy is our priority. We use advanced encryption to protect your personal information. 
+                    All data is handled securely and in compliance with privacy regulations.
                   </p>
                 </div>
                 <div id="returns">
-                  <h3 className="font-semibold text-[var(--text-primary)] mb-4 luxury-heading">Returns & Exchanges</h3>
-                  <p className="text-[var(--olive-green)] text-sm leading-relaxed luxury-body">
+                  <h3 className="font-semibold text-[rgb(236,223,204)] mb-4 luxury-heading">Returns & Exchanges</h3>
+                  <p className="text-[rgb(105,117,101)] text-sm leading-relaxed luxury-body">
                     30-day hassle-free returns. Free size exchanges. If our AI recommendation doesn't fit perfectly, 
                     we'll make it right with no questions asked.
                   </p>
@@ -448,8 +452,8 @@ const Index = () => {
               </div>
               
               <div className="text-center">
-                <p className="text-[var(--olive-green)] text-xs sm:text-sm luxury-body">
-                  © 2025 RARITONE. All rights reserved. | Powered by AI Fashion Technology | Made in India
+                <p className="text-[rgb(105,117,101)] text-xs sm:text-sm luxury-body">
+                  © 2025 RARITONE. All rights reserved. | Premium Fashion Collection | Made in India
                 </p>
               </div>
             </div>
