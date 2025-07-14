@@ -201,25 +201,26 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                     >
                       <motion.h1 
                         className="navbar-title font-light text-white text-xl sm:text-2xl luxury-heading"
-                        whileHover={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        initial={{ opacity: 1, scale: 1 }}
+                        whileHover={{ opacity: 0, scale: 0.7, y: -5 }}
+                        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                       >
                         {pageTitle}
                       </motion.h1>
                       <motion.img
                         src="/Raritone.png"
                         alt="RARITONE"
-                        className="navbar-logo absolute"
+                        className="navbar-logo absolute pointer-events-none"
                         style={{
                           height: isMobile ? '56px' : '72px',
                           width: 'auto',
                           maxWidth: isMobile ? '240px' : '360px',
                           objectFit: 'contain',
-                          filter: 'drop-shadow(0 0 20px rgba(209, 169, 128, 0.9))'
+                          filter: 'drop-shadow(0 0 25px rgba(209, 169, 128, 0.9))'
                         }}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        initial={{ opacity: 0, scale: 0.7, y: 5 }}
+                        whileHover={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                       />
                     </motion.div>
                   ) : (
@@ -311,10 +312,10 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="dropdown-menu border-t-0 rounded-t-none max-w-md mx-auto"
+                  className="dropdown-menu border-t-0 rounded-t-none max-w-sm mx-auto"
                 >
-                  <div className="px-4 sm:px-6 py-4 sm:py-6">
-                    <div className="flex justify-center gap-4 sm:gap-6 flex-wrap">
+                  <div className="px-3 sm:px-4 py-3 sm:py-4">
+                    <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
                       {menuItems.map((item) => (
                         <motion.div 
                           key={item.label} 
@@ -327,10 +328,10 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                               navigate(item.path);
                               setIsMenuOpen(false);
                             }}
-                            className="menu-item w-full text-center flex flex-col items-center px-3 py-4 sm:px-4 sm:py-5 space-y-2 sm:space-y-3 rounded-xl"
+                            className="menu-item w-full text-center flex flex-col items-center px-2 py-3 sm:px-3 sm:py-4 space-y-1 sm:space-y-2 rounded-lg"
                           >
-                            <item.icon size={20} color="var(--light-off-white)" />
-                            <span className="font-medium text-xs sm:text-sm text-white luxury-body">{item.label}</span>
+                            <item.icon size={18} color="var(--light-off-white)" />
+                            <span className="font-medium text-xs text-white luxury-body">{item.label}</span>
                           </button>
                         </motion.div>
                       ))}

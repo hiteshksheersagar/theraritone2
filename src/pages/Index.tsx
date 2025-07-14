@@ -7,7 +7,6 @@ import SearchOverlay from '@/components/SearchOverlay';
 import ChatWidget from '@/components/ChatWidget';
 import ProductModal from '@/components/ProductModal';
 import AddToCartToast from '@/components/AddToCartToast';
-import CustomerReviews from '@/components/CustomerReviews';
 import { useToast } from '@/components/ToastContainer';
 import { useAuth } from '@/contexts/AuthContext';
 import { addToCart } from '@/lib/user';
@@ -16,8 +15,6 @@ const Index = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [wishlist, setWishlist] = useState<string[]>([]);
   const [showCartToast, setShowCartToast] = useState(false);
   const [cartToastItem, setCartToastItem] = useState(null);
   const [navbarVisible, setNavbarVisible] = useState(false);
@@ -26,42 +23,23 @@ const Index = () => {
   const { user, refreshCart, addToLocalCart } = useAuth();
   const { scrollY } = useScroll();
 
-  // Smooth scroll transforms for Gucci-style animation
-  const logoScale = useTransform(scrollY, [0, 400], [1, 0.6]);
-  const logoY = useTransform(scrollY, [0, 400], [0, -200]);
-  const logoOpacity = useTransform(scrollY, [0, 300, 400], [1, 0.8, 0]);
-  const butterflyY = useTransform(scrollY, [0, 600], [0, -300]);
-  const butterflyScale = useTransform(scrollY, [0, 600], [1, 0.3]);
+  // Enhanced smooth scroll transforms
+  const logoScale = useScroll(scrollY, [0, 500], [1, 0.4]);
+  const logoY = useTransform(scrollY, [0, 500], [0, -250]);
+  const logoOpacity = useTransform(scrollY, [0, 400, 500], [1, 0.8, 0]);
+  const butterflyScale = useTransform(scrollY, [0, 600], [1, 0.2]);
+  const butterflyY = useTransform(scrollY, [0, 600], [0, -400]);
   const butterflyOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const buttonsY = useTransform(scrollY, [0, 400], [0, -150]);
+  const buttonsY = useTransform(scrollY, [0, 400], [0, -200]);
   const buttonsOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Navbar visibility based on scroll
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
-      setNavbarVisible(latest > 400);
+      setNavbarVisible(latest > 500);
     });
     return unsubscribe;
   }, [scrollY]);
-
-  // Load wishlist
-  useEffect(() => {
-    const savedWishlist = localStorage.getItem('wishlist');
-    if (savedWishlist) {
-      setWishlist(JSON.parse(savedWishlist));
-    }
-  }, []);
 
   // Handle add to cart from modal
   const handleAddToCart = async (product: any, quantity: number, size?: string, color?: string) => {
@@ -95,96 +73,144 @@ const Index = () => {
     setShowCartToast(true);
   };
 
-  // Handle add to wishlist
-  const handleAddToWishlist = (productId: string) => {
-    const currentWishlist = [...wishlist];
-    if (!currentWishlist.includes(productId)) {
-      currentWishlist.push(productId);
-      setWishlist(currentWishlist);
-      localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
-      
-      window.dispatchEvent(new Event('wishlistUpdated'));
-      
-      showToast({
-        type: 'success',
-        title: 'Added to Wishlist',
-        message: 'Item has been saved to your wishlist!'
-      });
-    } else {
-      const updatedWishlist = currentWishlist.filter(id => id !== productId);
-      setWishlist(updatedWishlist);
-      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-      
-      window.dispatchEvent(new Event('wishlistUpdated'));
-      
-      showToast({
-        type: 'info',
-        title: 'Removed from Wishlist',
-        message: 'Item has been removed from your wishlist.'
-      });
+  const categories = [
+    {
+      id: 'tops',
+      name: 'Tops',
+      image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=400',
+      count: '120+ Items'
+    },
+    {
+      id: 'bottoms',
+      name: 'Bottoms',
+      image: 'https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400',
+      count: '85+ Items'
+    },
+    {
+      id: 'outerwear',
+      name: 'Outerwear',
+      image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=400',
+      count: '65+ Items'
+    },
+    {
+      id: 'dresses',
+      name: 'Dresses',
+      image: 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=400',
+      count: '95+ Items'
     }
-  };
+  ];
+
+  const reviews = [
+    {
+      id: 1,
+      name: "Priya Sharma",
+      rating: 5,
+      comment: "The body scan is incredible! Perfect fit every time. Revolutionary technology that changed how I shop.",
+      avatar: "PS",
+      location: "Mumbai"
+    },
+    {
+      id: 2,
+      name: "Arjun Patel",
+      rating: 5,
+      comment: "Amazing quality and the virtual try-on saved me so much time. Love the luxury experience!",
+      avatar: "AP",
+      location: "Delhi"
+    },
+    {
+      id: 3,
+      name: "Sneha Reddy",
+      rating: 5,
+      comment: "Love the personalized recommendations. Best fashion app I've ever used! The suggestions are spot-on.",
+      avatar: "SR",
+      location: "Bangalore"
+    },
+    {
+      id: 4,
+      name: "Vikram Singh",
+      rating: 5,
+      comment: "Revolutionary technology. Never buying clothes without this again. Perfect fit every time!",
+      avatar: "VS",
+      location: "Pune"
+    },
+    {
+      id: 5,
+      name: "Ananya Gupta",
+      rating: 5,
+      comment: "The luxury feel and perfect fit recommendations are unmatched. Premium experience!",
+      avatar: "AG",
+      location: "Chennai"
+    },
+    {
+      id: 6,
+      name: "Rohit Kumar",
+      rating: 5,
+      comment: "Fast delivery, perfect sizing, and beautiful quality. RARITONE exceeded all expectations!",
+      avatar: "RK",
+      location: "Hyderabad"
+    }
+  ];
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      {/* 3D Animated Background */}
+      {/* Enhanced 3D Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
-          {/* Animated 3D Spheres */}
+          {/* Enhanced 3D Spheres */}
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20"
+            className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full opacity-15"
             style={{
-              background: 'radial-gradient(circle, rgba(209,169,128,0.3) 0%, transparent 70%)',
-              filter: 'blur(40px)',
+              background: 'radial-gradient(circle, rgba(209,169,128,0.4) 0%, transparent 70%)',
+              filter: 'blur(60px)',
             }}
             animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
+              scale: [1, 1.3, 1],
+              x: [0, 80, 0],
+              y: [0, -50, 0],
             }}
             transition={{
-              duration: 8,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15"
+            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-12"
             style={{
-              background: 'radial-gradient(circle, rgba(116,136,115,0.4) 0%, transparent 70%)',
-              filter: 'blur(50px)',
+              background: 'radial-gradient(circle, rgba(116,136,115,0.5) 0%, transparent 70%)',
+              filter: 'blur(70px)',
             }}
             animate={{
-              scale: [1, 0.8, 1],
-              x: [0, -40, 0],
-              y: [0, 40, 0],
+              scale: [1, 0.7, 1],
+              x: [0, -60, 0],
+              y: [0, 60, 0],
             }}
             transition={{
-              duration: 10,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 2
+              delay: 3
             }}
           />
           
-          {/* Floating Particles */}
-          {[...Array(20)].map((_, i) => (
+          {/* Enhanced Floating Particles */}
+          {[...Array(30)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-amber-400 rounded-full opacity-60"
+              className="absolute w-1.5 h-1.5 bg-amber-400 rounded-full opacity-70"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
               }}
               animate={{
-                y: [0, -100, 0],
-                opacity: [0.6, 1, 0.6],
-                scale: [1, 1.5, 1],
+                y: [0, -150, 0],
+                opacity: [0.7, 1, 0.7],
+                scale: [1, 2, 1],
               }}
               transition={{
-                duration: 6 + Math.random() * 4,
+                duration: 8 + Math.random() * 6,
                 repeat: Infinity,
-                delay: Math.random() * 5,
+                delay: Math.random() * 8,
                 ease: "easeInOut"
               }}
             />
@@ -201,7 +227,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <div className="relative min-h-screen flex flex-col items-center justify-center z-10">
-        {/* Realistic Butterfly Animation */}
+        {/* Enhanced Realistic Butterfly - Much Larger */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           style={{
@@ -211,51 +237,56 @@ const Index = () => {
           }}
         >
           <motion.svg
-            width="400"
-            height="300"
-            viewBox="0 0 400 300"
-            className="opacity-80"
+            width="1200"
+            height="900"
+            viewBox="0 0 1200 900"
+            className="opacity-60"
             animate={{
-              rotateY: [0, 5, 0, -5, 0],
+              rotateY: [0, 2, 0, -2, 0],
             }}
             transition={{
-              duration: 12,
+              duration: 20,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            {/* Butterfly Body */}
+            {/* Enhanced Butterfly Body */}
             <motion.ellipse
-              cx="200"
-              cy="150"
-              rx="3"
-              ry="60"
+              cx="600"
+              cy="450"
+              rx="8"
+              ry="120"
               fill="#8B4513"
               animate={{
-                ry: [60, 62, 60],
+                ry: [120, 125, 120],
               }}
               transition={{
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
             />
             
-            {/* Left Upper Wing */}
+            {/* Body Segments */}
+            <ellipse cx="600" cy="380" rx="6" ry="12" fill="#A0522D" />
+            <ellipse cx="600" cy="420" rx="7" ry="15" fill="#8B4513" />
+            <ellipse cx="600" cy="480" rx="6" ry="12" fill="#654321" />
+            
+            {/* Left Upper Wing - Much More Realistic */}
             <motion.path
-              d="M200 120 Q150 80 100 90 Q60 100 65 130 Q70 160 100 170 Q140 175 180 165 Q195 150 200 135"
-              fill="url(#wingGradient1)"
+              d="M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480"
+              fill="url(#realisticWingGradient1)"
               stroke="#654321"
-              strokeWidth="0.5"
+              strokeWidth="1"
               animate={{
                 d: [
-                  "M200 120 Q150 80 100 90 Q60 100 65 130 Q70 160 100 170 Q140 175 180 165 Q195 150 200 135",
-                  "M200 120 Q145 75 95 85 Q55 95 60 125 Q65 155 95 165 Q135 170 175 160 Q190 145 200 135",
-                  "M200 120 Q150 80 100 90 Q60 100 65 130 Q70 160 100 170 Q140 175 180 165 Q195 150 200 135"
+                  "M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480",
+                  "M600 400 Q395 245 195 295 Q75 345 95 445 Q115 545 245 575 Q395 595 545 555 Q575 515 600 480",
+                  "M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480"
                 ]
               }}
               transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -263,137 +294,126 @@ const Index = () => {
             
             {/* Right Upper Wing */}
             <motion.path
-              d="M200 120 Q250 80 300 90 Q340 100 335 130 Q330 160 300 170 Q260 175 220 165 Q205 150 200 135"
-              fill="url(#wingGradient1)"
+              d="M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480"
+              fill="url(#realisticWingGradient1)"
               stroke="#654321"
-              strokeWidth="0.5"
+              strokeWidth="1"
               animate={{
                 d: [
-                  "M200 120 Q250 80 300 90 Q340 100 335 130 Q330 160 300 170 Q260 175 220 165 Q205 150 200 135",
-                  "M200 120 Q255 75 305 85 Q345 95 340 125 Q335 155 305 165 Q265 170 225 160 Q210 145 200 135",
-                  "M200 120 Q250 80 300 90 Q340 100 335 130 Q330 160 300 170 Q260 175 220 165 Q205 150 200 135"
+                  "M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480",
+                  "M600 400 Q805 245 1005 295 Q1125 345 1105 445 Q1085 545 955 575 Q805 595 655 555 Q625 515 600 480",
+                  "M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480"
                 ]
               }}
               transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: 0.2
+                delay: 0.3
               }}
             />
             
             {/* Left Lower Wing */}
             <motion.path
-              d="M200 160 Q170 190 140 200 Q110 210 105 230 Q110 250 130 245 Q150 240 170 230 Q185 220 200 200"
-              fill="url(#wingGradient2)"
+              d="M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620"
+              fill="url(#realisticWingGradient2)"
               stroke="#654321"
-              strokeWidth="0.5"
+              strokeWidth="1"
               animate={{
                 d: [
-                  "M200 160 Q170 190 140 200 Q110 210 105 230 Q110 250 130 245 Q150 240 170 230 Q185 220 200 200",
-                  "M200 160 Q165 185 135 195 Q105 205 100 225 Q105 245 125 240 Q145 235 165 225 Q180 215 200 200",
-                  "M200 160 Q170 190 140 200 Q110 210 105 230 Q110 250 130 245 Q150 240 170 230 Q185 220 200 200"
+                  "M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620",
+                  "M600 480 Q495 575 395 615 Q295 655 275 715 Q285 775 345 765 Q415 745 495 715 Q555 675 600 620",
+                  "M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620"
                 ]
               }}
               transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.4
-              }}
-            />
-            
-            {/* Right Lower Wing */}
-            <motion.path
-              d="M200 160 Q230 190 260 200 Q290 210 295 230 Q290 250 270 245 Q250 240 230 230 Q215 220 200 200"
-              fill="url(#wingGradient2)"
-              stroke="#654321"
-              strokeWidth="0.5"
-              animate={{
-                d: [
-                  "M200 160 Q230 190 260 200 Q290 210 295 230 Q290 250 270 245 Q250 240 230 230 Q215 220 200 200",
-                  "M200 160 Q235 185 265 195 Q295 205 300 225 Q295 245 275 240 Q255 235 235 225 Q220 215 200 200",
-                  "M200 160 Q230 190 260 200 Q290 210 295 230 Q290 250 270 245 Q250 240 230 230 Q215 220 200 200"
-                ]
-              }}
-              transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 0.6
               }}
             />
             
-            {/* Wing Patterns */}
-            <circle cx="150" cy="130" r="8" fill="rgba(255,255,255,0.3)" />
-            <circle cx="250" cy="130" r="8" fill="rgba(255,255,255,0.3)" />
-            <circle cx="150" cy="130" r="4" fill="rgba(139,69,19,0.6)" />
-            <circle cx="250" cy="130" r="4" fill="rgba(139,69,19,0.6)" />
-            
-            {/* Antennae */}
+            {/* Right Lower Wing */}
             <motion.path
-              d="M195 100 Q190 85 185 70"
+              d="M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620"
+              fill="url(#realisticWingGradient2)"
               stroke="#654321"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
+              strokeWidth="1"
               animate={{
                 d: [
-                  "M195 100 Q190 85 185 70",
-                  "M195 100 Q188 83 183 68",
-                  "M195 100 Q190 85 185 70"
+                  "M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620",
+                  "M600 480 Q705 575 805 615 Q905 655 925 715 Q915 775 855 765 Q785 745 705 715 Q645 675 600 620",
+                  "M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620"
                 ]
               }}
               transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.path
-              d="M205 100 Q210 85 215 70"
-              stroke="#654321"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-              animate={{
-                d: [
-                  "M205 100 Q210 85 215 70",
-                  "M205 100 Q212 83 217 68",
-                  "M205 100 Q210 85 215 70"
-                ]
-              }}
-              transition={{
-                duration: 3,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: 0.5
+                delay: 0.9
               }}
             />
+
+            {/* Wing Patterns and Details */}
+            <motion.g
+              animate={{ opacity: [0.4, 0.7, 0.4] }}
+              transition={{
+                repeat: Infinity,
+                duration: 8,
+                ease: "easeInOut"
+              }}
+            >
+              {/* Wing veins */}
+              <path d="M600 400 Q500 380 400 400" stroke="#654321" strokeWidth="1" fill="none" />
+              <path d="M580 420 Q480 400 380 420" stroke="#654321" strokeWidth="1" fill="none" />
+              <path d="M600 400 Q700 380 800 400" stroke="#654321" strokeWidth="1" fill="none" />
+              <path d="M620 420 Q720 400 820 420" stroke="#654321" strokeWidth="1" fill="none" />
+              
+              {/* Wing spots */}
+              <circle cx="450" cy="420" r="15" fill="rgba(139, 69, 19, 0.6)" />
+              <circle cx="750" cy="420" r="15" fill="rgba(139, 69, 19, 0.6)" />
+              <circle cx="450" cy="420" r="8" fill="rgba(160, 82, 45, 0.8)" />
+              <circle cx="750" cy="420" r="8" fill="rgba(160, 82, 45, 0.8)" />
+            </motion.g>
             
-            {/* Antennae Tips */}
-            <circle cx="185" cy="70" r="2" fill="#654321" />
-            <circle cx="215" cy="70" r="2" fill="#654321" />
-            
+            {/* Antennae */}
+            <motion.g
+              animate={{ 
+                rotate: [0, 2, -2, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 8,
+                ease: "easeInOut"
+              }}
+            >
+              <path d="M590 360 Q585 340 580 320 Q578 310 575 300" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <path d="M610 360 Q615 340 620 320 Q622 310 625 300" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <ellipse cx="575" cy="298" rx="3" ry="6" fill="#8B4513" />
+              <ellipse cx="625" cy="298" rx="3" ry="6" fill="#8B4513" />
+            </motion.g>
+
             {/* Gradients */}
             <defs>
-              <radialGradient id="wingGradient1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(222,184,135,0.8)" />
-                <stop offset="50%" stopColor="rgba(205,133,63,0.6)" />
-                <stop offset="100%" stopColor="rgba(139,69,19,0.4)" />
+              <radialGradient id="realisticWingGradient1" cx="40%" cy="50%" r="60%">
+                <stop offset="0%" stopColor="rgba(222, 184, 135, 0.9)" />
+                <stop offset="30%" stopColor="rgba(205, 133, 63, 0.8)" />
+                <stop offset="60%" stopColor="rgba(160, 82, 45, 0.6)" />
+                <stop offset="100%" stopColor="rgba(139, 69, 19, 0.4)" />
               </radialGradient>
-              <radialGradient id="wingGradient2" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(160,82,45,0.7)" />
-                <stop offset="50%" stopColor="rgba(139,69,19,0.5)" />
-                <stop offset="100%" stopColor="rgba(101,67,33,0.3)" />
+              <radialGradient id="realisticWingGradient2" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stopColor="rgba(160, 82, 45, 0.8)" />
+                <stop offset="50%" stopColor="rgba(139, 69, 19, 0.6)" />
+                <stop offset="100%" stopColor="rgba(101, 67, 33, 0.4)" />
               </radialGradient>
             </defs>
           </motion.svg>
         </motion.div>
 
-        {/* Logo */}
+        {/* Logo - Overlapping the Butterfly */}
         <motion.div
-          className="mb-16 z-20"
+          className="mb-16 z-30 relative"
           style={{
             scale: logoScale,
             y: logoY,
@@ -401,39 +421,39 @@ const Index = () => {
           }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 2, ease: "easeOut" }}
         >
           <img
             src="/Raritone.png"
             alt="RARITONE"
-            className="h-32 sm:h-40 lg:h-48 w-auto"
+            className="h-40 sm:h-48 lg:h-56 w-auto"
             style={{
-              filter: 'drop-shadow(0 0 30px rgba(209, 169, 128, 0.6))',
+              filter: 'drop-shadow(0 0 40px rgba(209, 169, 128, 0.8))',
             }}
           />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          className="text-lg sm:text-xl text-gray-400 mb-16 text-center max-w-md"
+          className="text-xl sm:text-2xl text-gray-400 mb-16 text-center max-w-md z-20"
           style={{ opacity: logoOpacity }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
+          transition={{ duration: 2, delay: 0.5 }}
         >
           Fashion Meets Technology
         </motion.p>
 
         {/* Action Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-6 z-20"
+          className="flex flex-col sm:flex-row gap-6 z-30"
           style={{
             y: buttonsY,
             opacity: buttonsOpacity,
           }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 1 }}
+          transition={{ duration: 2, delay: 1 }}
         >
           <motion.button
             className="flex items-center space-x-3 bg-amber-600 hover:bg-amber-700 text-black font-semibold px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -458,88 +478,160 @@ const Index = () => {
 
         {/* Privacy Notice */}
         <motion.p
-          className="text-sm text-gray-500 mt-12 text-center max-w-lg px-4"
+          className="text-sm text-gray-500 mt-12 text-center max-w-lg px-4 z-20"
           style={{ opacity: buttonsOpacity }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 1.5 }}
+          transition={{ duration: 2, delay: 1.5 }}
         >
-          This site uses webcam access to enable AI-powered try-ons. Your camera data is never stored or shared.
+          This site uses webcam access to enable body scanning. Your camera data is never stored or shared.
         </motion.p>
       </div>
 
-      {/* Rest of the content */}
-      <div className="relative z-10">
-        <CustomerReviews />
+      {/* Moving Customer Reviews - Infinite Scroll */}
+      <div className="relative z-10 py-16 overflow-hidden">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">What Our Customers Say</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Join thousands of satisfied customers who love our premium fashion experience.
+          </p>
+        </div>
         
-        {/* Footer */}
-        <footer className="py-12 sm:py-20 bg-gray-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="rounded-2xl p-8 sm:p-12 bg-gray-800"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {/* Brand Section */}
-                <div className="lg:col-span-2">
-                  <motion.img
-                    src="/Raritone.png"
-                    alt="RARITONE"
-                    className="h-16 sm:h-20 w-auto mb-6"
-                    whileHover={{ scale: 1.05 }}
-                  />
-                  <p className="text-gray-400 max-w-md leading-relaxed text-sm sm:text-base">
-                    Premium fashion collection with exceptional quality and style. 
-                    Experience luxury fashion with personalized service across India.
-                  </p>
-                </div>
-
-                {/* Quick Links */}
-                <div>
-                  <h3 className="font-semibold text-white mb-6 text-base sm:text-lg">Quick Links</h3>
-                  <ul className="space-y-3">
-                    {[
-                      { label: 'About Us', href: '#about' },
-                      { label: 'Privacy Policy', href: '#privacy' },
-                      { label: 'Returns & Exchanges', href: '#returns' },
-                      { label: 'Contact Us', href: '#contact' }
-                    ].map((link) => (
-                      <li key={link.label}>
-                        <motion.a 
-                          href={link.href} 
-                          className="text-gray-400 hover:text-white text-sm sm:text-base transition-colors"
-                          whileHover={{ x: 5 }}
-                        >
-                          {link.label}
-                        </motion.a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Contact Info */}
-                <div>
-                  <h3 className="font-semibold text-white mb-6 text-base sm:text-lg">Contact</h3>
-                  <div className="space-y-4">
-                    <p className="text-gray-400 text-sm sm:text-base">hello@raritone.in</p>
-                    <p className="text-gray-400 text-sm sm:text-base">+91 98765 43210</p>
-                    <p className="text-gray-400 text-sm sm:text-base">Mumbai, India</p>
+        <div className="relative">
+          <div className="flex animate-scroll-left space-x-6">
+            {/* Duplicate reviews for seamless infinite scroll */}
+            {[...reviews, ...reviews, ...reviews].map((review, index) => (
+              <div
+                key={`${review.id}-${index}`}
+                className="flex-shrink-0 w-80 bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700"
+              >
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-black font-bold mr-4">
+                    {review.avatar}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white">{review.name}</h4>
+                    <p className="text-gray-400 text-sm">{review.location}</p>
+                    <div className="flex mt-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <span key={i} className="text-amber-400">★</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
+                <p className="text-gray-300 text-sm leading-relaxed">"{review.comment}"</p>
               </div>
-              
-              <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-                <p className="text-gray-500 text-xs sm:text-sm">
-                  © 2025 RARITONE. All rights reserved. | Premium Fashion Collection | Made in India
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Shop by Category Section */}
+      <div className="relative z-10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Shop by Category</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Discover our curated collections designed for every style and occasion.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category) => (
+              <motion.div
+                key={category.id}
+                className="group cursor-pointer"
+                onClick={() => navigate(`/catalog?category=${category.id}`)}
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative overflow-hidden rounded-xl bg-gray-800 border border-gray-700">
+                  <div className="aspect-[4/5] overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl font-semibold text-white mb-1">{category.name}</h3>
+                    <p className="text-gray-300 text-sm">{category.count}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 py-12 sm:py-20 bg-gray-900/95 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="rounded-2xl p-8 sm:p-12 bg-gray-800/80 backdrop-blur-sm border border-gray-700"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Brand Section */}
+              <div className="lg:col-span-2">
+                <motion.img
+                  src="/Raritone.png"
+                  alt="RARITONE"
+                  className="h-16 sm:h-20 w-auto mb-6"
+                  whileHover={{ scale: 1.05 }}
+                />
+                <p className="text-gray-300 max-w-md leading-relaxed text-sm sm:text-base">
+                  Premium fashion collection with exceptional quality and style. 
+                  Experience luxury fashion with personalized service across India.
                 </p>
               </div>
-            </motion.div>
-          </div>
-        </footer>
-      </div>
+
+              {/* Quick Links */}
+              <div>
+                <h3 className="font-semibold text-white mb-6 text-base sm:text-lg">Quick Links</h3>
+                <ul className="space-y-3">
+                  {[
+                    { label: 'About Us', href: '#about' },
+                    { label: 'Privacy Policy', href: '#privacy' },
+                    { label: 'Returns & Exchanges', href: '#returns' },
+                    { label: 'Contact Us', href: '#contact' }
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <motion.a 
+                        href={link.href} 
+                        className="text-gray-300 hover:text-white text-sm sm:text-base transition-colors"
+                        whileHover={{ x: 5 }}
+                      >
+                        {link.label}
+                      </motion.a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact Info */}
+              <div>
+                <h3 className="font-semibold text-white mb-6 text-base sm:text-lg">Contact</h3>
+                <div className="space-y-4">
+                  <p className="text-gray-300 text-sm sm:text-base">hello@raritone.in</p>
+                  <p className="text-gray-300 text-sm sm:text-base">+91 98765 43210</p>
+                  <p className="text-gray-300 text-sm sm:text-base">Mumbai, India</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-600 mt-12 pt-8 text-center">
+              <p className="text-gray-400 text-xs sm:text-sm">
+                © 2025 RARITONE. All rights reserved. | Premium Fashion Collection | Made in India
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </footer>
 
       {/* Search Overlay */}
       <SearchOverlay 
@@ -556,7 +648,7 @@ const Index = () => {
           setSelectedProduct(null);
         }}
         onAddToCart={handleAddToCart}
-        onAddToWishlist={handleAddToWishlist}
+        onAddToWishlist={() => {}}
       />
 
       {/* Add to Cart Toast */}

@@ -578,3 +578,21 @@ textarea:focus-visible {
   outline: 2px solid var(--soft-tan);
   outline-offset: 2px;
 }
+
+/* INFINITE SCROLL ANIMATION FOR REVIEWS */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 60s linear infinite;
+}
+
+.animate-scroll-left:hover {
+  animation-play-state: paused;
+}
