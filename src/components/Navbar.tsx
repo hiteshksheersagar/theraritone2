@@ -194,33 +194,33 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                 <div className="flex-1 flex justify-center items-center relative">
                   {pageTitle ? (
                     <motion.div 
-                      className="navbar-title-container relative cursor-pointer flex items-center justify-center h-20 w-full max-w-sm"
+                      className="navbar-title-container relative cursor-pointer flex items-center justify-center h-20 w-full max-w-md"
                       onClick={handleTitleClick}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <motion.h1 
-                        className="navbar-title font-light text-white text-xl sm:text-2xl luxury-heading"
-                        initial={{ opacity: 1, scale: 1 }}
-                        whileHover={{ opacity: 0, scale: 0.7, y: -5 }}
-                        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        className="navbar-title font-light text-white text-xl sm:text-2xl luxury-heading absolute inset-0 flex items-center justify-center"
+                        initial={{ opacity: 1, scale: 1, y: 0 }}
+                        whileHover={{ opacity: 0, scale: 0.8, y: -8 }}
+                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                       >
                         {pageTitle}
                       </motion.h1>
                       <motion.img
                         src="/Raritone.png"
                         alt="RARITONE"
-                        className="navbar-logo absolute pointer-events-none"
+                        className="navbar-logo absolute inset-0 pointer-events-none flex items-center justify-center"
                         style={{
-                          height: isMobile ? '56px' : '72px',
+                          height: isMobile ? '48px' : '64px',
                           width: 'auto',
-                          maxWidth: isMobile ? '240px' : '360px',
+                          maxWidth: isMobile ? '200px' : '280px',
                           objectFit: 'contain',
-                          filter: 'drop-shadow(0 0 25px rgba(209, 169, 128, 0.9))'
+                          filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))'
                         }}
-                        initial={{ opacity: 0, scale: 0.7, y: 5 }}
+                        initial={{ opacity: 0, scale: 0.8, y: 8 }}
                         whileHover={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                       />
                     </motion.div>
                   ) : (

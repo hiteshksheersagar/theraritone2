@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, ShoppingBag } from 'lucide-react';
+import { Camera, ShoppingBag, Star } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import SearchOverlay from '@/components/SearchOverlay';
@@ -24,19 +24,19 @@ const Index = () => {
   const { scrollY } = useScroll();
 
   // Enhanced smooth scroll transforms
-  const logoScale = useScroll(scrollY, [0, 500], [1, 0.4]);
-  const logoY = useTransform(scrollY, [0, 500], [0, -250]);
-  const logoOpacity = useTransform(scrollY, [0, 400, 500], [1, 0.8, 0]);
-  const butterflyScale = useTransform(scrollY, [0, 600], [1, 0.2]);
-  const butterflyY = useTransform(scrollY, [0, 600], [0, -400]);
-  const butterflyOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const buttonsY = useTransform(scrollY, [0, 400], [0, -200]);
-  const buttonsOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const logoScale = useTransform(scrollY, [0, 600], [1, 0.6]);
+  const logoY = useTransform(scrollY, [0, 600], [0, -300]);
+  const logoOpacity = useTransform(scrollY, [0, 500, 600], [1, 0.8, 0]);
+  const butterflyScale = useTransform(scrollY, [0, 800], [1, 0.3]);
+  const butterflyY = useTransform(scrollY, [0, 800], [0, -500]);
+  const butterflyOpacity = useTransform(scrollY, [0, 600], [1, 0]);
+  const buttonsY = useTransform(scrollY, [0, 500], [0, -250]);
+  const buttonsOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   // Navbar visibility based on scroll
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
-      setNavbarVisible(latest > 500);
+      setNavbarVisible(latest > 700);
     });
     return unsubscribe;
   }, [scrollY]);
@@ -73,30 +73,31 @@ const Index = () => {
     setShowCartToast(true);
   };
 
+  // Raritone Collection Categories
   const categories = [
     {
       id: 'tops',
-      name: 'Tops',
-      image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=400',
-      count: '120+ Items'
+      name: 'Oversized T-Shirts',
+      image: '/Raritone Collection/Bold vibe Oversize Tshirt.jpg',
+      count: '15+ Designs'
     },
     {
-      id: 'bottoms',
-      name: 'Bottoms',
-      image: 'https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=400',
-      count: '85+ Items'
+      id: 'hoodies',
+      name: 'Premium Hoodies',
+      image: '/Raritone Collection/Hoddie1(F).jpg',
+      count: '8+ Styles'
     },
     {
-      id: 'outerwear',
-      name: 'Outerwear',
-      image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=400',
-      count: '65+ Items'
+      id: 'graphics',
+      name: 'Graphic Tees',
+      image: '/Raritone Collection/Kiss me again.jpeg',
+      count: '12+ Prints'
     },
     {
-      id: 'dresses',
-      name: 'Dresses',
-      image: 'https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=400',
-      count: '95+ Items'
+      id: 'minimal',
+      name: 'Minimal Collection',
+      image: '/Raritone Collection/Minimal look Oversize Tshirt.jpg',
+      count: '10+ Items'
     }
   ];
 
@@ -105,7 +106,7 @@ const Index = () => {
       id: 1,
       name: "Priya Sharma",
       rating: 5,
-      comment: "The body scan is incredible! Perfect fit every time. Revolutionary technology that changed how I shop.",
+      comment: "The quality is incredible! Perfect fit every time. Love the premium feel and unique designs.",
       avatar: "PS",
       location: "Mumbai"
     },
@@ -113,7 +114,7 @@ const Index = () => {
       id: 2,
       name: "Arjun Patel",
       rating: 5,
-      comment: "Amazing quality and the virtual try-on saved me so much time. Love the luxury experience!",
+      comment: "Amazing quality and the designs are so unique. Love the luxury experience and attention to detail!",
       avatar: "AP",
       location: "Delhi"
     },
@@ -121,7 +122,7 @@ const Index = () => {
       id: 3,
       name: "Sneha Reddy",
       rating: 5,
-      comment: "Love the personalized recommendations. Best fashion app I've ever used! The suggestions are spot-on.",
+      comment: "Love the style and comfort. Best fashion brand I've discovered! The fit is perfect.",
       avatar: "SR",
       location: "Bangalore"
     },
@@ -129,7 +130,7 @@ const Index = () => {
       id: 4,
       name: "Vikram Singh",
       rating: 5,
-      comment: "Revolutionary technology. Never buying clothes without this again. Perfect fit every time!",
+      comment: "Premium quality clothing. Never buying from anywhere else again. Absolutely perfect!",
       avatar: "VS",
       location: "Pune"
     },
@@ -137,7 +138,7 @@ const Index = () => {
       id: 5,
       name: "Ananya Gupta",
       rating: 5,
-      comment: "The luxury feel and perfect fit recommendations are unmatched. Premium experience!",
+      comment: "The luxury feel and perfect fit are unmatched. Premium experience that exceeds expectations!",
       avatar: "AG",
       location: "Chennai"
     },
@@ -227,7 +228,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <div className="relative min-h-screen flex flex-col items-center justify-center z-10">
-        {/* Enhanced Realistic Butterfly - Much Larger */}
+        {/* Enhanced White Butterfly with Grey Essence - Much Larger */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           style={{
@@ -237,28 +238,28 @@ const Index = () => {
           }}
         >
           <motion.svg
-            width="1200"
-            height="900"
-            viewBox="0 0 1200 900"
-            className="opacity-60"
+            width="1400"
+            height="1000"
+            viewBox="0 0 1400 1000"
+            className="opacity-80"
             animate={{
-              rotateY: [0, 2, 0, -2, 0],
+              rotateY: [0, 1, 0, -1, 0],
             }}
             transition={{
-              duration: 20,
+              duration: 25,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            {/* Enhanced Butterfly Body */}
+            {/* Enhanced White Butterfly Body with Grey Essence */}
             <motion.ellipse
-              cx="600"
-              cy="450"
-              rx="8"
-              ry="120"
-              fill="#8B4513"
+              cx="700"
+              cy="500"
+              rx="10"
+              ry="140"
+              fill="url(#butterflyBodyGradient)"
               animate={{
-                ry: [120, 125, 120],
+                ry: [140, 145, 140],
               }}
               transition={{
                 duration: 4,
@@ -268,21 +269,22 @@ const Index = () => {
             />
             
             {/* Body Segments */}
-            <ellipse cx="600" cy="380" rx="6" ry="12" fill="#A0522D" />
-            <ellipse cx="600" cy="420" rx="7" ry="15" fill="#8B4513" />
-            <ellipse cx="600" cy="480" rx="6" ry="12" fill="#654321" />
+            <ellipse cx="700" cy="420" rx="8" ry="15" fill="rgba(200, 200, 200, 0.9)" />
+            <ellipse cx="700" cy="460" rx="9" ry="18" fill="rgba(180, 180, 180, 0.8)" />
+            <ellipse cx="700" cy="520" rx="8" ry="15" fill="rgba(160, 160, 160, 0.7)" />
+            <ellipse cx="700" cy="560" rx="7" ry="12" fill="rgba(140, 140, 140, 0.6)" />
             
-            {/* Left Upper Wing - Much More Realistic */}
+            {/* Left Upper Wing - White with Grey Essence */}
             <motion.path
-              d="M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480"
-              fill="url(#realisticWingGradient1)"
-              stroke="#654321"
-              strokeWidth="1"
+              d="M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520"
+              fill="url(#whiteWingGradient1)"
+              stroke="rgba(120, 120, 120, 0.6)"
+              strokeWidth="1.5"
               animate={{
                 d: [
-                  "M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480",
-                  "M600 400 Q395 245 195 295 Q75 345 95 445 Q115 545 245 575 Q395 595 545 555 Q575 515 600 480",
-                  "M600 400 Q400 250 200 300 Q80 350 100 450 Q120 550 250 580 Q400 600 550 560 Q580 520 600 480"
+                  "M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520",
+                  "M700 450 Q445 275 215 325 Q75 375 95 475 Q115 575 245 615 Q445 645 595 595 Q645 555 700 520",
+                  "M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520"
                 ]
               }}
               transition={{
@@ -292,17 +294,17 @@ const Index = () => {
               }}
             />
             
-            {/* Right Upper Wing */}
+            {/* Right Upper Wing - White with Grey Essence */}
             <motion.path
-              d="M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480"
-              fill="url(#realisticWingGradient1)"
-              stroke="#654321"
-              strokeWidth="1"
+              d="M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520"
+              fill="url(#whiteWingGradient1)"
+              stroke="rgba(120, 120, 120, 0.6)"
+              strokeWidth="1.5"
               animate={{
                 d: [
-                  "M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480",
-                  "M600 400 Q805 245 1005 295 Q1125 345 1105 445 Q1085 545 955 575 Q805 595 655 555 Q625 515 600 480",
-                  "M600 400 Q800 250 1000 300 Q1120 350 1100 450 Q1080 550 950 580 Q800 600 650 560 Q620 520 600 480"
+                  "M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520",
+                  "M700 450 Q955 275 1185 325 Q1325 375 1305 475 Q1285 575 1155 615 Q955 645 805 595 Q755 555 700 520",
+                  "M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520"
                 ]
               }}
               transition={{
@@ -313,17 +315,17 @@ const Index = () => {
               }}
             />
             
-            {/* Left Lower Wing */}
+            {/* Left Lower Wing - White with Grey Essence */}
             <motion.path
-              d="M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620"
-              fill="url(#realisticWingGradient2)"
-              stroke="#654321"
-              strokeWidth="1"
+              d="M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680"
+              fill="url(#whiteWingGradient2)"
+              stroke="rgba(120, 120, 120, 0.5)"
+              strokeWidth="1.5"
               animate={{
                 d: [
-                  "M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620",
-                  "M600 480 Q495 575 395 615 Q295 655 275 715 Q285 775 345 765 Q415 745 495 715 Q555 675 600 620",
-                  "M600 480 Q500 580 400 620 Q300 660 280 720 Q290 780 350 770 Q420 750 500 720 Q560 680 600 620"
+                  "M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680",
+                  "M700 520 Q575 635 445 675 Q315 715 295 775 Q305 835 365 825 Q445 805 545 775 Q615 735 700 680",
+                  "M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680"
                 ]
               }}
               transition={{
@@ -334,17 +336,17 @@ const Index = () => {
               }}
             />
             
-            {/* Right Lower Wing */}
+            {/* Right Lower Wing - White with Grey Essence */}
             <motion.path
-              d="M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620"
-              fill="url(#realisticWingGradient2)"
-              stroke="#654321"
-              strokeWidth="1"
+              d="M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680"
+              fill="url(#whiteWingGradient2)"
+              stroke="rgba(120, 120, 120, 0.5)"
+              strokeWidth="1.5"
               animate={{
                 d: [
-                  "M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620",
-                  "M600 480 Q705 575 805 615 Q905 655 925 715 Q915 775 855 765 Q785 745 705 715 Q645 675 600 620",
-                  "M600 480 Q700 580 800 620 Q900 660 920 720 Q910 780 850 770 Q780 750 700 720 Q640 680 600 620"
+                  "M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680",
+                  "M700 520 Q825 635 955 675 Q1085 715 1105 775 Q1095 835 1035 825 Q955 805 855 775 Q785 735 700 680",
+                  "M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680"
                 ]
               }}
               transition={{
@@ -355,7 +357,7 @@ const Index = () => {
               }}
             />
 
-            {/* Wing Patterns and Details */}
+            {/* Wing Patterns and Details - Grey Essence */}
             <motion.g
               animate={{ opacity: [0.4, 0.7, 0.4] }}
               transition={{
@@ -365,19 +367,19 @@ const Index = () => {
               }}
             >
               {/* Wing veins */}
-              <path d="M600 400 Q500 380 400 400" stroke="#654321" strokeWidth="1" fill="none" />
-              <path d="M580 420 Q480 400 380 420" stroke="#654321" strokeWidth="1" fill="none" />
-              <path d="M600 400 Q700 380 800 400" stroke="#654321" strokeWidth="1" fill="none" />
-              <path d="M620 420 Q720 400 820 420" stroke="#654321" strokeWidth="1" fill="none" />
+              <path d="M700 450 Q580 420 460 440" stroke="rgba(120, 120, 120, 0.6)" strokeWidth="1.5" fill="none" />
+              <path d="M680 470 Q560 450 440 470" stroke="rgba(120, 120, 120, 0.5)" strokeWidth="1.5" fill="none" />
+              <path d="M700 450 Q820 420 940 440" stroke="rgba(120, 120, 120, 0.6)" strokeWidth="1.5" fill="none" />
+              <path d="M720 470 Q840 450 960 470" stroke="rgba(120, 120, 120, 0.5)" strokeWidth="1.5" fill="none" />
               
-              {/* Wing spots */}
-              <circle cx="450" cy="420" r="15" fill="rgba(139, 69, 19, 0.6)" />
-              <circle cx="750" cy="420" r="15" fill="rgba(139, 69, 19, 0.6)" />
-              <circle cx="450" cy="420" r="8" fill="rgba(160, 82, 45, 0.8)" />
-              <circle cx="750" cy="420" r="8" fill="rgba(160, 82, 45, 0.8)" />
+              {/* Wing spots - Grey essence */}
+              <circle cx="500" cy="470" r="18" fill="rgba(160, 160, 160, 0.4)" />
+              <circle cx="900" cy="470" r="18" fill="rgba(160, 160, 160, 0.4)" />
+              <circle cx="500" cy="470" r="10" fill="rgba(120, 120, 120, 0.6)" />
+              <circle cx="900" cy="470" r="10" fill="rgba(120, 120, 120, 0.6)" />
             </motion.g>
             
-            {/* Antennae */}
+            {/* Antennae - Grey */}
             <motion.g
               animate={{ 
                 rotate: [0, 2, -2, 0],
@@ -388,24 +390,31 @@ const Index = () => {
                 ease: "easeInOut"
               }}
             >
-              <path d="M590 360 Q585 340 580 320 Q578 310 575 300" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round" />
-              <path d="M610 360 Q615 340 620 320 Q622 310 625 300" stroke="#8B4513" strokeWidth="3" fill="none" strokeLinecap="round" />
-              <ellipse cx="575" cy="298" rx="3" ry="6" fill="#8B4513" />
-              <ellipse cx="625" cy="298" rx="3" ry="6" fill="#8B4513" />
+              <path d="M690 400 Q685 380 680 360 Q678 350 675 340" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <path d="M710 400 Q715 380 720 360 Q722 350 725 340" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <ellipse cx="675" cy="338" rx="3" ry="6" fill="rgba(100, 100, 100, 0.9)" />
+              <ellipse cx="725" cy="338" rx="3" ry="6" fill="rgba(100, 100, 100, 0.9)" />
             </motion.g>
 
-            {/* Gradients */}
+            {/* Gradients for White Butterfly with Grey Essence */}
             <defs>
-              <radialGradient id="realisticWingGradient1" cx="40%" cy="50%" r="60%">
-                <stop offset="0%" stopColor="rgba(222, 184, 135, 0.9)" />
-                <stop offset="30%" stopColor="rgba(205, 133, 63, 0.8)" />
-                <stop offset="60%" stopColor="rgba(160, 82, 45, 0.6)" />
-                <stop offset="100%" stopColor="rgba(139, 69, 19, 0.4)" />
+              <radialGradient id="butterflyBodyGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(220, 220, 220, 0.9)" />
+                <stop offset="50%" stopColor="rgba(180, 180, 180, 0.8)" />
+                <stop offset="100%" stopColor="rgba(140, 140, 140, 0.7)" />
               </radialGradient>
-              <radialGradient id="realisticWingGradient2" cx="50%" cy="60%" r="50%">
-                <stop offset="0%" stopColor="rgba(160, 82, 45, 0.8)" />
-                <stop offset="50%" stopColor="rgba(139, 69, 19, 0.6)" />
-                <stop offset="100%" stopColor="rgba(101, 67, 33, 0.4)" />
+              
+              <radialGradient id="whiteWingGradient1" cx="40%" cy="50%" r="60%">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.9)" />
+                <stop offset="30%" stopColor="rgba(240, 240, 240, 0.8)" />
+                <stop offset="60%" stopColor="rgba(200, 200, 200, 0.6)" />
+                <stop offset="100%" stopColor="rgba(160, 160, 160, 0.4)" />
+              </radialGradient>
+              
+              <radialGradient id="whiteWingGradient2" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stopColor="rgba(250, 250, 250, 0.8)" />
+                <stop offset="50%" stopColor="rgba(220, 220, 220, 0.6)" />
+                <stop offset="100%" stopColor="rgba(180, 180, 180, 0.4)" />
               </radialGradient>
             </defs>
           </motion.svg>
@@ -413,7 +422,7 @@ const Index = () => {
 
         {/* Logo - Overlapping the Butterfly */}
         <motion.div
-          className="mb-16 z-30 relative"
+          className="mb-8 z-30 relative"
           style={{
             scale: logoScale,
             y: logoY,
@@ -426,16 +435,16 @@ const Index = () => {
           <img
             src="/Raritone.png"
             alt="RARITONE"
-            className="h-40 sm:h-48 lg:h-56 w-auto"
+            className="h-48 sm:h-56 lg:h-64 w-auto"
             style={{
-              filter: 'drop-shadow(0 0 40px rgba(209, 169, 128, 0.8))',
+              filter: 'drop-shadow(0 0 40px rgba(255, 255, 255, 0.8))',
             }}
           />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          className="text-xl sm:text-2xl text-gray-400 mb-16 text-center max-w-md z-20"
+          className="text-xl sm:text-2xl text-gray-400 mb-20 text-center max-w-md z-20"
           style={{ opacity: logoOpacity }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -444,9 +453,9 @@ const Index = () => {
           Fashion Meets Technology
         </motion.p>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - Moved Below */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-6 z-30"
+          className="flex flex-col sm:flex-row gap-6 z-30 mt-16"
           style={{
             y: buttonsY,
             opacity: buttonsOpacity,
@@ -488,51 +497,13 @@ const Index = () => {
         </motion.p>
       </div>
 
-      {/* Moving Customer Reviews - Infinite Scroll */}
-      <div className="relative z-10 py-16 overflow-hidden">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">What Our Customers Say</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who love our premium fashion experience.
-          </p>
-        </div>
-        
-        <div className="relative">
-          <div className="flex animate-scroll-left space-x-6">
-            {/* Duplicate reviews for seamless infinite scroll */}
-            {[...reviews, ...reviews, ...reviews].map((review, index) => (
-              <div
-                key={`${review.id}-${index}`}
-                className="flex-shrink-0 w-80 bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700"
-              >
-                <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-black font-bold mr-4">
-                    {review.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white">{review.name}</h4>
-                    <p className="text-gray-400 text-sm">{review.location}</p>
-                    <div className="flex mt-1">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <span key={i} className="text-amber-400">★</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-300 text-sm leading-relaxed">"{review.comment}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Shop by Category Section */}
       <div className="relative z-10 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Shop by Category</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Discover our curated collections designed for every style and occasion.
+              Discover our exclusive Raritone collections designed for every style and occasion.
             </p>
           </div>
           
@@ -560,6 +531,106 @@ const Index = () => {
                   </div>
                 </div>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Brand Models Section */}
+      <div className="relative z-10 py-20 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-6">Wear the Difference</h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Experience premium fashion that speaks to your style. Our collections are designed for those who appreciate quality and uniqueness.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <img
+                src="https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Model wearing Raritone collection"
+                className="w-full h-[600px] object-cover rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl" />
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-4">Premium Quality</h3>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  Every piece in our collection is crafted with meticulous attention to detail, 
+                  using only the finest materials to ensure comfort, durability, and style.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-4">Unique Designs</h3>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  Our exclusive designs are created to make you stand out. From bold graphics 
+                  to minimalist aesthetics, find your perfect style expression.
+                </p>
+              </div>
+              
+              <motion.button
+                className="bg-amber-600 hover:bg-amber-700 text-black font-semibold px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                onClick={() => navigate('/catalog')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Explore Collection
+              </motion.button>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Moving Customer Reviews - Infinite Scroll */}
+      <div className="relative z-10 py-16 overflow-hidden">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">What Our Customers Say</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Join thousands of satisfied customers who love our premium fashion experience.
+          </p>
+        </div>
+        
+        <div className="relative">
+          <div className="flex animate-scroll-left space-x-6">
+            {/* Triple the reviews for seamless infinite scroll */}
+            {[...reviews, ...reviews, ...reviews].map((review, index) => (
+              <div
+                key={`${review.id}-${index}`}
+                className="flex-shrink-0 w-80 bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700"
+              >
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-black font-bold mr-4">
+                    {review.avatar}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white">{review.name}</h4>
+                    <p className="text-gray-400 text-sm">{review.location}</p>
+                    <div className="flex mt-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} size={16} className="text-amber-400 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed">"{review.comment}"</p>
+              </div>
             ))}
           </div>
         </div>
