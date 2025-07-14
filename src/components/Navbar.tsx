@@ -239,7 +239,7 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                         width: 'auto',
                         maxWidth: isMobile ? '240px' : '360px',
                         objectFit: 'contain',
-                        filter: 'drop-shadow(0 0 20px rgba(209, 169, 128, 0.9))'
+                        filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))'
                       }}
                     />
                   )}
@@ -312,10 +312,10 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="dropdown-menu border-t-0 rounded-t-none max-w-sm mx-auto"
+                  className="dropdown-menu border-t-0 rounded-t-none max-w-xs mx-auto"
                 >
-                  <div className="px-3 sm:px-4 py-3 sm:py-4">
-                    <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                  <div className="px-2 sm:px-3 py-2 sm:py-3">
+                    <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
                       {menuItems.map((item) => (
                         <motion.div 
                           key={item.label} 
@@ -328,9 +328,9 @@ const Navbar: React.FC<NavbarProps> = memo(({ onSearchOpen, onCartOpen, pageTitl
                               navigate(item.path);
                               setIsMenuOpen(false);
                             }}
-                            className="menu-item w-full text-center flex flex-col items-center px-2 py-3 sm:px-3 sm:py-4 space-y-1 sm:space-y-2 rounded-lg"
+                            className="menu-item w-full text-center flex flex-col items-center px-2 py-2 sm:px-3 sm:py-3 space-y-1 rounded-lg"
                           >
-                            <item.icon size={18} color="var(--light-off-white)" />
+                            <item.icon size={16} color="var(--light-off-white)" />
                             <span className="font-medium text-xs text-white luxury-body">{item.label}</span>
                           </button>
                         </motion.div>
