@@ -596,3 +596,74 @@ textarea:focus-visible {
 .animate-scroll-left:hover {
   animation-play-state: paused;
 }
+
+/* ENHANCED PROFESSIONAL BACKGROUND EFFECTS */
+.professional-bg-overlay {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(209, 169, 128, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(116, 136, 115, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  animation: professional-float 20s ease-in-out infinite;
+}
+
+@keyframes professional-float {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* ENHANCED MOTH BUTTERFLY ANIMATIONS */
+.moth-wing-flutter {
+  animation: moth-flutter 4s ease-in-out infinite;
+}
+
+@keyframes moth-flutter {
+  0%, 100% { 
+    transform: scaleY(1) rotateX(0deg);
+  }
+  25% { 
+    transform: scaleY(0.95) rotateX(2deg);
+  }
+  75% { 
+    transform: scaleY(1.05) rotateX(-2deg);
+  }
+}
+
+/* PROFESSIONAL PARTICLE EFFECTS */
+.professional-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.professional-particles::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(209,169,128,0.2), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(116,136,115,0.3), transparent);
+  background-repeat: repeat;
+  background-size: 150px 100px;
+  animation: professional-drift 60s linear infinite;
+}
+
+@keyframes professional-drift {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(-150px) translateY(-100px);
+  }
+}

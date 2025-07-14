@@ -23,20 +23,22 @@ const Index = () => {
   const { user, refreshCart, addToLocalCart } = useAuth();
   const { scrollY } = useScroll();
 
-  // Enhanced smooth scroll transforms
-  const logoScale = useTransform(scrollY, [0, 600], [1, 0.6]);
-  const logoY = useTransform(scrollY, [0, 600], [0, -300]);
-  const logoOpacity = useTransform(scrollY, [0, 500, 600], [1, 0.8, 0]);
-  const butterflyScale = useTransform(scrollY, [0, 800], [1, 0.3]);
-  const butterflyY = useTransform(scrollY, [0, 800], [0, -500]);
+  // Enhanced smooth scroll transforms for butterfly and logo
+  const butterflyScale = useTransform(scrollY, [0, 800], [1, 0.2]);
+  const butterflyY = useTransform(scrollY, [0, 800], [0, -600]);
   const butterflyOpacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const buttonsY = useTransform(scrollY, [0, 500], [0, -250]);
+  
+  const logoScale = useTransform(scrollY, [0, 600], [1, 0.8]);
+  const logoY = useTransform(scrollY, [0, 600], [0, -200]);
+  const logoOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  
+  const buttonsY = useTransform(scrollY, [0, 500], [0, -300]);
   const buttonsOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
-  // Navbar visibility based on scroll
+  // Navbar visibility based on scroll - appears when butterfly moves up
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
-      setNavbarVisible(latest > 700);
+      setNavbarVisible(latest > 400);
     });
     return unsubscribe;
   }, [scrollY]);
@@ -154,72 +156,71 @@ const Index = () => {
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
-      {/* Enhanced 3D Animated Background */}
+      {/* Enhanced Professional 3D Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
-          {/* Enhanced 3D Spheres */}
+        {/* Base gradient with depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black">
+          
+          {/* Professional geometric patterns */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 left-0 w-full h-full"
+                 style={{
+                   backgroundImage: `
+                     radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                     radial-gradient(circle at 75% 75%, rgba(209,169,128,0.1) 0%, transparent 50%),
+                     linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.02) 50%, transparent 60%)
+                   `,
+                   backgroundSize: '400px 400px, 600px 600px, 200px 200px'
+                 }}
+            />
+          </div>
+
+          {/* Animated light rays */}
           <motion.div
-            className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full opacity-15"
-            style={{
-              background: 'radial-gradient(circle, rgba(209,169,128,0.4) 0%, transparent 70%)',
-              filter: 'blur(60px)',
-            }}
+            className="absolute inset-0"
             animate={{
-              scale: [1, 1.3, 1],
-              x: [0, 80, 0],
-              y: [0, -50, 0],
+              background: [
+                'radial-gradient(ellipse 80% 50% at 50% 20%, rgba(209,169,128,0.15) 0%, transparent 60%)',
+                'radial-gradient(ellipse 60% 40% at 60% 30%, rgba(209,169,128,0.1) 0%, transparent 60%)',
+                'radial-gradient(ellipse 80% 50% at 40% 20%, rgba(209,169,128,0.15) 0%, transparent 60%)'
+              ]
             }}
             transition={{
-              duration: 12,
+              duration: 8,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-12"
-            style={{
-              background: 'radial-gradient(circle, rgba(116,136,115,0.5) 0%, transparent 70%)',
-              filter: 'blur(70px)',
-            }}
-            animate={{
-              scale: [1, 0.7, 1],
-              x: [0, -60, 0],
-              y: [0, 60, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 3
-            }}
-          />
-          
-          {/* Enhanced Floating Particles */}
-          {[...Array(30)].map((_, i) => (
+
+          {/* Professional floating particles */}
+          {[...Array(40)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1.5 h-1.5 bg-amber-400 rounded-full opacity-70"
+              className="absolute w-1 h-1 bg-white rounded-full opacity-60"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
               }}
               animate={{
-                y: [0, -150, 0],
-                opacity: [0.7, 1, 0.7],
-                scale: [1, 2, 1],
+                y: [0, -100, 0],
+                opacity: [0.6, 1, 0.6],
+                scale: [1, 1.5, 1],
               }}
               transition={{
-                duration: 8 + Math.random() * 6,
+                duration: 6 + Math.random() * 4,
                 repeat: Infinity,
-                delay: Math.random() * 8,
+                delay: Math.random() * 6,
                 ease: "easeInOut"
               }}
             />
           ))}
+
+          {/* Subtle mesh gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* Navigation - appears when butterfly moves up */}
       <Navbar 
         onSearchOpen={() => setIsSearchOpen(true)}
         onCartOpen={() => {}}
@@ -228,7 +229,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <div className="relative min-h-screen flex flex-col items-center justify-center z-10">
-        {/* Enhanced White Butterfly with Grey Essence - Much Larger */}
+        {/* Professional Moth Butterfly - Based on your image */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           style={{
@@ -238,28 +239,28 @@ const Index = () => {
           }}
         >
           <motion.svg
-            width="1400"
-            height="1000"
-            viewBox="0 0 1400 1000"
-            className="opacity-80"
+            width="1200"
+            height="800"
+            viewBox="0 0 1200 800"
+            className="opacity-90"
             animate={{
-              rotateY: [0, 1, 0, -1, 0],
+              rotateY: [0, 0.5, 0, -0.5, 0],
             }}
             transition={{
-              duration: 25,
+              duration: 20,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            {/* Enhanced White Butterfly Body with Grey Essence */}
+            {/* Professional Moth Body */}
             <motion.ellipse
-              cx="700"
-              cy="500"
-              rx="10"
-              ry="140"
-              fill="url(#butterflyBodyGradient)"
+              cx="600"
+              cy="400"
+              rx="8"
+              ry="120"
+              fill="url(#mothBodyGradient)"
               animate={{
-                ry: [140, 145, 140],
+                ry: [120, 125, 120],
               }}
               transition={{
                 duration: 4,
@@ -268,23 +269,23 @@ const Index = () => {
               }}
             />
             
-            {/* Body Segments */}
-            <ellipse cx="700" cy="420" rx="8" ry="15" fill="rgba(200, 200, 200, 0.9)" />
-            <ellipse cx="700" cy="460" rx="9" ry="18" fill="rgba(180, 180, 180, 0.8)" />
-            <ellipse cx="700" cy="520" rx="8" ry="15" fill="rgba(160, 160, 160, 0.7)" />
-            <ellipse cx="700" cy="560" rx="7" ry="12" fill="rgba(140, 140, 140, 0.6)" />
+            {/* Body segments for realism */}
+            <ellipse cx="600" cy="340" rx="6" ry="12" fill="rgba(180, 180, 180, 0.9)" />
+            <ellipse cx="600" cy="370" rx="7" ry="15" fill="rgba(160, 160, 160, 0.8)" />
+            <ellipse cx="600" cy="420" rx="6" ry="12" fill="rgba(140, 140, 140, 0.7)" />
+            <ellipse cx="600" cy="450" rx="5" ry="10" fill="rgba(120, 120, 120, 0.6)" />
             
-            {/* Left Upper Wing - White with Grey Essence */}
+            {/* Left Upper Wing - Moth style with realistic patterns */}
             <motion.path
-              d="M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520"
-              fill="url(#whiteWingGradient1)"
-              stroke="rgba(120, 120, 120, 0.6)"
+              d="M600 360 Q400 220 180 280 Q80 320 100 400 Q120 480 220 520 Q380 560 520 500 Q580 460 600 420"
+              fill="url(#mothWingGradient1)"
+              stroke="rgba(100, 100, 100, 0.8)"
               strokeWidth="1.5"
               animate={{
                 d: [
-                  "M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520",
-                  "M700 450 Q445 275 215 325 Q75 375 95 475 Q115 575 245 615 Q445 645 595 595 Q645 555 700 520",
-                  "M700 450 Q450 280 220 330 Q80 380 100 480 Q120 580 250 620 Q450 650 600 600 Q650 560 700 520"
+                  "M600 360 Q400 220 180 280 Q80 320 100 400 Q120 480 220 520 Q380 560 520 500 Q580 460 600 420",
+                  "M600 360 Q395 215 175 275 Q75 315 95 395 Q115 475 215 515 Q375 555 515 495 Q575 455 600 420",
+                  "M600 360 Q400 220 180 280 Q80 320 100 400 Q120 480 220 520 Q380 560 520 500 Q580 460 600 420"
                 ]
               }}
               transition={{
@@ -294,17 +295,17 @@ const Index = () => {
               }}
             />
             
-            {/* Right Upper Wing - White with Grey Essence */}
+            {/* Right Upper Wing - Moth style */}
             <motion.path
-              d="M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520"
-              fill="url(#whiteWingGradient1)"
-              stroke="rgba(120, 120, 120, 0.6)"
+              d="M600 360 Q800 220 1020 280 Q1120 320 1100 400 Q1080 480 980 520 Q820 560 680 500 Q620 460 600 420"
+              fill="url(#mothWingGradient1)"
+              stroke="rgba(100, 100, 100, 0.8)"
               strokeWidth="1.5"
               animate={{
                 d: [
-                  "M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520",
-                  "M700 450 Q955 275 1185 325 Q1325 375 1305 475 Q1285 575 1155 615 Q955 645 805 595 Q755 555 700 520",
-                  "M700 450 Q950 280 1180 330 Q1320 380 1300 480 Q1280 580 1150 620 Q950 650 800 600 Q750 560 700 520"
+                  "M600 360 Q800 220 1020 280 Q1120 320 1100 400 Q1080 480 980 520 Q820 560 680 500 Q620 460 600 420",
+                  "M600 360 Q805 215 1025 275 Q1125 315 1105 395 Q1085 475 985 515 Q825 555 685 495 Q625 455 600 420",
+                  "M600 360 Q800 220 1020 280 Q1120 320 1100 400 Q1080 480 980 520 Q820 560 680 500 Q620 460 600 420"
                 ]
               }}
               transition={{
@@ -315,17 +316,17 @@ const Index = () => {
               }}
             />
             
-            {/* Left Lower Wing - White with Grey Essence */}
+            {/* Left Lower Wing - Moth hindwing with tails */}
             <motion.path
-              d="M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680"
-              fill="url(#whiteWingGradient2)"
-              stroke="rgba(120, 120, 120, 0.5)"
+              d="M600 420 Q500 540 380 580 Q260 620 240 680 Q250 720 300 710 Q380 690 480 660 Q560 620 600 580"
+              fill="url(#mothWingGradient2)"
+              stroke="rgba(100, 100, 100, 0.6)"
               strokeWidth="1.5"
               animate={{
                 d: [
-                  "M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680",
-                  "M700 520 Q575 635 445 675 Q315 715 295 775 Q305 835 365 825 Q445 805 545 775 Q615 735 700 680",
-                  "M700 520 Q580 640 450 680 Q320 720 300 780 Q310 840 370 830 Q450 810 550 780 Q620 740 700 680"
+                  "M600 420 Q500 540 380 580 Q260 620 240 680 Q250 720 300 710 Q380 690 480 660 Q560 620 600 580",
+                  "M600 420 Q495 535 375 575 Q255 615 235 675 Q245 715 295 705 Q375 685 475 655 Q555 615 600 580",
+                  "M600 420 Q500 540 380 580 Q260 620 240 680 Q250 720 300 710 Q380 690 480 660 Q560 620 600 580"
                 ]
               }}
               transition={{
@@ -336,17 +337,17 @@ const Index = () => {
               }}
             />
             
-            {/* Right Lower Wing - White with Grey Essence */}
+            {/* Right Lower Wing - Moth hindwing with tails */}
             <motion.path
-              d="M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680"
-              fill="url(#whiteWingGradient2)"
-              stroke="rgba(120, 120, 120, 0.5)"
+              d="M600 420 Q700 540 820 580 Q940 620 960 680 Q950 720 900 710 Q820 690 720 660 Q640 620 600 580"
+              fill="url(#mothWingGradient2)"
+              stroke="rgba(100, 100, 100, 0.6)"
               strokeWidth="1.5"
               animate={{
                 d: [
-                  "M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680",
-                  "M700 520 Q825 635 955 675 Q1085 715 1105 775 Q1095 835 1035 825 Q955 805 855 775 Q785 735 700 680",
-                  "M700 520 Q820 640 950 680 Q1080 720 1100 780 Q1090 840 1030 830 Q950 810 850 780 Q780 740 700 680"
+                  "M600 420 Q700 540 820 580 Q940 620 960 680 Q950 720 900 710 Q820 690 720 660 Q640 620 600 580",
+                  "M600 420 Q705 535 825 575 Q945 615 965 675 Q955 715 905 705 Q825 685 725 655 Q645 615 600 580",
+                  "M600 420 Q700 540 820 580 Q940 620 960 680 Q950 720 900 710 Q820 690 720 660 Q640 620 600 580"
                 ]
               }}
               transition={{
@@ -357,7 +358,7 @@ const Index = () => {
               }}
             />
 
-            {/* Wing Patterns and Details - Grey Essence */}
+            {/* Moth wing patterns and details */}
             <motion.g
               animate={{ opacity: [0.4, 0.7, 0.4] }}
               transition={{
@@ -366,20 +367,23 @@ const Index = () => {
                 ease: "easeInOut"
               }}
             >
-              {/* Wing veins */}
-              <path d="M700 450 Q580 420 460 440" stroke="rgba(120, 120, 120, 0.6)" strokeWidth="1.5" fill="none" />
-              <path d="M680 470 Q560 450 440 470" stroke="rgba(120, 120, 120, 0.5)" strokeWidth="1.5" fill="none" />
-              <path d="M700 450 Q820 420 940 440" stroke="rgba(120, 120, 120, 0.6)" strokeWidth="1.5" fill="none" />
-              <path d="M720 470 Q840 450 960 470" stroke="rgba(120, 120, 120, 0.5)" strokeWidth="1.5" fill="none" />
+              {/* Wing veins - more prominent for moth */}
+              <path d="M600 360 Q500 340 400 360" stroke="rgba(80, 80, 80, 0.8)" strokeWidth="2" fill="none" />
+              <path d="M580 380 Q480 370 380 390" stroke="rgba(80, 80, 80, 0.6)" strokeWidth="1.5" fill="none" />
+              <path d="M600 360 Q700 340 800 360" stroke="rgba(80, 80, 80, 0.8)" strokeWidth="2" fill="none" />
+              <path d="M620 380 Q720 370 820 390" stroke="rgba(80, 80, 80, 0.6)" strokeWidth="1.5" fill="none" />
               
-              {/* Wing spots - Grey essence */}
-              <circle cx="500" cy="470" r="18" fill="rgba(160, 160, 160, 0.4)" />
-              <circle cx="900" cy="470" r="18" fill="rgba(160, 160, 160, 0.4)" />
-              <circle cx="500" cy="470" r="10" fill="rgba(120, 120, 120, 0.6)" />
-              <circle cx="900" cy="470" r="10" fill="rgba(120, 120, 120, 0.6)" />
+              {/* Moth eye spots */}
+              <circle cx="420" cy="380" r="25" fill="rgba(60, 60, 60, 0.6)" />
+              <circle cx="420" cy="380" r="15" fill="rgba(40, 40, 40, 0.8)" />
+              <circle cx="425" cy="375" r="5" fill="rgba(200, 200, 200, 0.9)" />
+              
+              <circle cx="780" cy="380" r="25" fill="rgba(60, 60, 60, 0.6)" />
+              <circle cx="780" cy="380" r="15" fill="rgba(40, 40, 40, 0.8)" />
+              <circle cx="775" cy="375" r="5" fill="rgba(200, 200, 200, 0.9)" />
             </motion.g>
             
-            {/* Antennae - Grey */}
+            {/* Moth antennae - feathery */}
             <motion.g
               animate={{ 
                 rotate: [0, 2, -2, 0],
@@ -390,37 +394,41 @@ const Index = () => {
                 ease: "easeInOut"
               }}
             >
-              <path d="M690 400 Q685 380 680 360 Q678 350 675 340" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
-              <path d="M710 400 Q715 380 720 360 Q722 350 725 340" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
-              <ellipse cx="675" cy="338" rx="3" ry="6" fill="rgba(100, 100, 100, 0.9)" />
-              <ellipse cx="725" cy="338" rx="3" ry="6" fill="rgba(100, 100, 100, 0.9)" />
+              <path d="M590 320 Q585 300 580 280 Q578 270 575 260" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <path d="M610 320 Q615 300 620 280 Q622 270 625 260" stroke="rgba(120, 120, 120, 0.9)" strokeWidth="3" fill="none" strokeLinecap="round" />
+              
+              {/* Feathery antenna details */}
+              <path d="M575 270 Q570 268 565 266" stroke="rgba(100, 100, 100, 0.7)" strokeWidth="1" fill="none" />
+              <path d="M578 275 Q573 273 568 271" stroke="rgba(100, 100, 100, 0.7)" strokeWidth="1" fill="none" />
+              <path d="M625 270 Q630 268 635 266" stroke="rgba(100, 100, 100, 0.7)" strokeWidth="1" fill="none" />
+              <path d="M622 275 Q627 273 632 271" stroke="rgba(100, 100, 100, 0.7)" strokeWidth="1" fill="none" />
             </motion.g>
 
-            {/* Gradients for White Butterfly with Grey Essence */}
+            {/* Gradients for Professional Moth */}
             <defs>
-              <radialGradient id="butterflyBodyGradient" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(220, 220, 220, 0.9)" />
-                <stop offset="50%" stopColor="rgba(180, 180, 180, 0.8)" />
-                <stop offset="100%" stopColor="rgba(140, 140, 140, 0.7)" />
+              <radialGradient id="mothBodyGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(160, 160, 160, 0.9)" />
+                <stop offset="50%" stopColor="rgba(120, 120, 120, 0.8)" />
+                <stop offset="100%" stopColor="rgba(80, 80, 80, 0.7)" />
               </radialGradient>
               
-              <radialGradient id="whiteWingGradient1" cx="40%" cy="50%" r="60%">
-                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.9)" />
-                <stop offset="30%" stopColor="rgba(240, 240, 240, 0.8)" />
-                <stop offset="60%" stopColor="rgba(200, 200, 200, 0.6)" />
-                <stop offset="100%" stopColor="rgba(160, 160, 160, 0.4)" />
+              <radialGradient id="mothWingGradient1" cx="40%" cy="50%" r="60%">
+                <stop offset="0%" stopColor="rgba(220, 220, 220, 0.8)" />
+                <stop offset="30%" stopColor="rgba(180, 180, 180, 0.7)" />
+                <stop offset="60%" stopColor="rgba(140, 140, 140, 0.5)" />
+                <stop offset="100%" stopColor="rgba(100, 100, 100, 0.3)" />
               </radialGradient>
               
-              <radialGradient id="whiteWingGradient2" cx="50%" cy="60%" r="50%">
-                <stop offset="0%" stopColor="rgba(250, 250, 250, 0.8)" />
-                <stop offset="50%" stopColor="rgba(220, 220, 220, 0.6)" />
-                <stop offset="100%" stopColor="rgba(180, 180, 180, 0.4)" />
+              <radialGradient id="mothWingGradient2" cx="50%" cy="60%" r="50%">
+                <stop offset="0%" stopColor="rgba(200, 200, 200, 0.7)" />
+                <stop offset="50%" stopColor="rgba(160, 160, 160, 0.5)" />
+                <stop offset="100%" stopColor="rgba(120, 120, 120, 0.3)" />
               </radialGradient>
             </defs>
           </motion.svg>
         </motion.div>
 
-        {/* Logo - Overlapping the Butterfly */}
+        {/* Logo - Positioned in the center of the butterfly */}
         <motion.div
           className="mb-8 z-30 relative"
           style={{
@@ -435,16 +443,16 @@ const Index = () => {
           <img
             src="/Raritone.png"
             alt="RARITONE"
-            className="h-48 sm:h-56 lg:h-64 w-auto"
+            className="h-32 sm:h-40 lg:h-48 w-auto"
             style={{
-              filter: 'drop-shadow(0 0 40px rgba(255, 255, 255, 0.8))',
+              filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.9))',
             }}
           />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          className="text-xl sm:text-2xl text-gray-400 mb-20 text-center max-w-md z-20"
+          className="text-lg sm:text-xl text-gray-300 mb-16 text-center max-w-md z-20"
           style={{ opacity: logoOpacity }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -453,9 +461,9 @@ const Index = () => {
           Fashion Meets Technology
         </motion.p>
 
-        {/* Action Buttons - Moved Below */}
+        {/* Action Buttons - Moved further below */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-6 z-30 mt-16"
+          className="flex flex-col sm:flex-row gap-6 z-30 mt-20"
           style={{
             y: buttonsY,
             opacity: buttonsOpacity,
@@ -487,7 +495,7 @@ const Index = () => {
 
         {/* Privacy Notice */}
         <motion.p
-          className="text-sm text-gray-500 mt-12 text-center max-w-lg px-4 z-20"
+          className="text-sm text-gray-400 mt-16 text-center max-w-lg px-4 z-20"
           style={{ opacity: buttonsOpacity }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -666,19 +674,20 @@ const Index = () => {
                 <h3 className="font-semibold text-white mb-6 text-base sm:text-lg">Quick Links</h3>
                 <ul className="space-y-3">
                   {[
-                    { label: 'About Us', href: '#about' },
-                    { label: 'Privacy Policy', href: '#privacy' },
-                    { label: 'Returns & Exchanges', href: '#returns' },
-                    { label: 'Contact Us', href: '#contact' }
+                    { label: 'About Us', href: '/quick-links#about-us' },
+                    { label: 'Privacy Policy', href: '/quick-links#privacy-policy' },
+                    { label: 'Returns & Exchanges', href: '/quick-links#returns' },
+                    { label: 'Contact Us', href: '/quick-links#contact' },
+                    { label: 'Write a Review', href: '/reviews' }
                   ].map((link) => (
                     <li key={link.label}>
-                      <motion.a 
-                        href={link.href} 
-                        className="text-gray-300 hover:text-white text-sm sm:text-base transition-colors"
+                      <motion.button 
+                        onClick={() => navigate(link.href)}
+                        className="text-gray-300 hover:text-white text-sm sm:text-base transition-colors text-left"
                         whileHover={{ x: 5 }}
                       >
                         {link.label}
-                      </motion.a>
+                      </motion.button>
                     </li>
                   ))}
                 </ul>
